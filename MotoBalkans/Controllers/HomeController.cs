@@ -15,11 +15,11 @@ namespace MotoBalkans.Controllers
 
         public IActionResult Index()
         {
-            return View();
-        }
+            if (User?.Identity != null && User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("All", "Motorcycle");
+            }
 
-        public IActionResult Privacy()
-        {
             return View();
         }
 

@@ -69,10 +69,10 @@ namespace MotoBalkans.Data
             base.OnModelCreating(builder);
         }
 
-        DbSet<Motorcycle> Motorcycles { get; set; }
+        public DbSet<Motorcycle> Motorcycles { get; set; }
 
-        DbSet<Customer> Customers { get; set; }
+        public DbSet<Customer> Customers { get; set; }
 
-        DbSet<Rental> Rentals { get; set; }
+        public DbSet<Rental> Rentals { get; set; }
     }
 }
