@@ -35,10 +35,13 @@ namespace MotoBalkans.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Add()
         {
-            var engineTypes = await GetEngineTypes();
-            var transmissionTypes = await GetTransmissionTypes();
+            var viewModel = new AddNewMotocycleFormViewModel();
 
-            return View();
+            viewModel.EngineTypes = await GetEngineTypes();
+            viewModel.TransmissionTypes = await GetTransmissionTypes();
+
+
+            return View(viewModel);
         }
 
         private async Task<IEnumerable<TransmissionViewModel>> GetTransmissionTypes()
