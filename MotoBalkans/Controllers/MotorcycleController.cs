@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MotoBalkans.Data;
-using MotoBalkans.Web.Data.Enums;
+using MotoBalkans.Web.Data.Models;
 using MotoBalkans.Web.Models.ViewModels;
-using System.Xml.Linq;
 
 namespace MotoBalkans.Web.Controllers
 {
@@ -42,6 +41,31 @@ namespace MotoBalkans.Web.Controllers
 
 
             return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(AddNewMotocycleFormViewModel createMotorcycleModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                createMotorcycleModel.EngineTypes = await GetEngineTypes();
+                createMotorcycleModel.TransmissionTypes = await GetTransmissionTypes();
+
+                return View(createMotorcycleModel);
+            }
+
+            var motorcycle = new Motorcycle()
+            {
+                Brand = createMotorcycleModel.Brand,
+                Model = createMotorcycleModel.Model,
+                EngineId = createMotorcycleModel.EngineId,
+                TransmissionId = createMotorcycleModel.TransmissionId
+            };
+
+            await _data.Motorcycles.AddAsync(motorcycle);
+            await _data.SaveChangesAsync();
+
+            return RedirectToAction("All", "Motorcycle");
         }
 
         private async Task<IEnumerable<TransmissionViewModel>> GetTransmissionTypes()
