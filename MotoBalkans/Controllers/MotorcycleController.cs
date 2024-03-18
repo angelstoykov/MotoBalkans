@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MotoBalkans.Data;
+using MotoBalkans.Web.Data.Enums;
 using MotoBalkans.Web.Data.Models;
 using MotoBalkans.Web.Models.ViewModels;
 
@@ -66,6 +67,27 @@ namespace MotoBalkans.Web.Controllers
             await _data.SaveChangesAsync();
 
             return RedirectToAction("All", "Motorcycle");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            var detailsModel = await _data.Motorcycles
+                .AsNoTracking()
+                .Where(x => x.Id == id)
+                .Include(e => e.Engine)
+                .Include(t => t.Transmission)
+                .Select(m => new MotorcycleDetailsViewModel()
+                {
+                    Id = m.Id,
+                    Brand = m.Brand,
+                    Model = m.Model,
+                    EngineType = m.Engine.EngineType,
+                    TransmissionType = m.Transmission.TransmissionType,
+                })
+                .FirstOrDefaultAsync();
+
+            return View(detailsModel);
         }
 
         private async Task<IEnumerable<TransmissionViewModel>> GetTransmissionTypes()
