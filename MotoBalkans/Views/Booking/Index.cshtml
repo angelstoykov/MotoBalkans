@@ -1,1 +1,9 @@
-﻿<h3>Booking index</h3>
+﻿@model SearchViewModel
+@{
+    ViewBag.Title = "Book Now";
+}
+
+<h3>Book now</h3>
+<input class="form-control" type="date" asp-for="StartDate" />
+<p>@Model.StartDate.ToString()</p>
+<p>@Model.EndDate.ToString()</p>

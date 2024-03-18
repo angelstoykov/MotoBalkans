@@ -17,7 +17,7 @@ namespace MotoBalkans.Controllers
         {
             if (User?.Identity != null && User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("All", "Motorcycle");
+                return RedirectToAction("Index", "Booking");
             }
 
             return View();
