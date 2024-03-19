@@ -1,0 +1,17 @@
+﻿@model SearchViewModel
+@{
+    ViewBag.Title = "Search Now";
+}
+
+<h3>Book now</h3>
+<form asp-action="Search" method="post">
+    <label asp-for="@Model.StartDate"></label>
+    <input class="form-control" type="date" asp-for="@Model.StartDate" />
+
+    <label asp-for="@Model.EndDate"></label>
+    <input class="form-control" type="date" asp-for="@Model.EndDate" />
+
+    <div class="mb-3">
+        <input class="btn btn-warning mb-2 w-100 p-3 fw-bold" type="submit" value="Search" />
+    </div>
+</form>
