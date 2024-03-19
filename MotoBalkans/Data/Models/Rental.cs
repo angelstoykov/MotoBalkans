@@ -17,5 +17,11 @@ namespace MotoBalkans.Web.Data.Models
 
         [ForeignKey(nameof(CustomerId))]
         public Customer Customer { get; set; } = null!;
+
+        [Required]
+        public DateTime StartDate { get; set; }
+
+        [Required]
+        public DateTime EndDate { get; set; }
     }
 }
