@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MotoBalkans.Data;
+using MotoBalkans.Web.Data.Models;
 using MotoBalkans.Web.Models.ViewModels;
 
 namespace MotoBalkans.Web.Controllers
@@ -23,10 +25,17 @@ namespace MotoBalkans.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Search(DateTime startDate, DateTime endDate)
         {
-            var availableMotorcycles = new AvailableMotorcyclesViewModel(1, "peho", "mesho", 3);
-            var list = new List<AvailableMotorcyclesViewModel>();
-            list.Add(availableMotorcycles);
-            return View("AvailableMotorcycles", list);
+            var availableMotorcycles = GetAvailableMotorcyclesForPeriod(startDate, endDate);
+            return View("AvailableMotorcycles", availableMotorcycles);
+        }
+
+        private List<AvailableMotorcyclesViewModel> GetAvailableMotorcyclesForPeriod(DateTime startDate, DateTime endDate)
+        {
+            // TODO: This method is not finished yet.
+            var checker = new AvailabilityChecker();
+            var availableMotorcycles = new List<AvailableMotorcyclesViewModel>();
+           
+            return availableMotorcycles;
         }
     }
 }
