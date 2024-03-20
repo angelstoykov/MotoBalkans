@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using MotoBalkans.Web.Data.Contracts;
 using MotoBalkans.Web.Data.Models;
 
 namespace MotoBalkans.Data
 {
-    public class MotoBalkansDbContext : IdentityDbContext
+    public class MotoBalkansDbContext : IdentityDbContext, IMotoBalkansDbContext
     {
         public MotoBalkansDbContext(DbContextOptions<MotoBalkansDbContext> options)
             : base(options)

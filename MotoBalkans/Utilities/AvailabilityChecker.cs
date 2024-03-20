@@ -1,18 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MotoBalkans.Data;
+using MotoBalkans.Web.Data.Contracts;
 using MotoBalkans.Web.Models.Utilities;
+using MotoBalkans.Web.Utilities.Contracts;
 using System;
 using System.Collections.Generic;
 
-public class AvailabilityChecker
+public class AvailabilityChecker : IAvailabilityChecker
 {
-    private List<(DateTime, DateTime)> unavailablePeriods;
-    private MotoBalkansDbContext _data;
+    private List<UnavailablePeriod> unavailablePeriods;
+    private IMotoBalkansDbContext _data;
 
-    public AvailabilityChecker(MotoBalkansDbContext context)
+    public AvailabilityChecker(IMotoBalkansDbContext context)
     {
         // Initialize the list of unavailable periods
-        unavailablePeriods = new List<(DateTime, DateTime)>();
+        unavailablePeriods = new List<UnavailablePeriod>();
 
         // Get all periods from rentals and add them to unavailable periods.
         // Create GetAllRentalPeriods();
@@ -20,39 +22,49 @@ public class AvailabilityChecker
         PopulateUnavailablePeriods();
     }
 
-    private async void PopulateUnavailablePeriods()
+    private void PopulateUnavailablePeriods()
     {
-        var unavailablePeriodsFromDb = await _data.Rentals
+        var unavailablePeriodsFromDb = _data.Rentals
             .Select(p => new UnavailablePeriod()
             {
                 StartDate = p.StartDate,
-                EndDate = p.EndDate
+                EndDate = p.EndDate,
+                MotorcycleId = p.MotorcycleId
             })
-            .ToListAsync();
+            .ToList();
 
-        if (unavailablePeriods != null
-            && unavailablePeriods.Count > 0)
+        if (unavailablePeriodsFromDb != null
+            && unavailablePeriodsFromDb.Count > 0)
         {
             foreach (var period in unavailablePeriodsFromDb)
             {
-                unavailablePeriods.Add((period.StartDate, period.EndDate));
+                unavailablePeriods.Add(period);
             }
         }
     }
 
-    public void AddUnavailablePeriod(DateTime startDate, DateTime endDate)
+    public void AddUnavailablePeriod(UnavailablePeriod period)
     {
-        unavailablePeriods.Add((startDate, endDate));
+        unavailablePeriods.Add(period);
+    }
+
+    public bool IsMotorcycleAvailable(int id, DateTime startDate, DateTime endDate)
+    {
+        // TODO: refactor this
+        // get all unavailable period for particular motorcycle
+        // check if requested period is possible
+        // if it is return true, otherwise false
+        return true;
     }
 
     public bool IsAvailable(DateTime requestedStartDate, DateTime requestedEndDate)
     {
         // Check if any unavailable period overlaps with the requested period
-        foreach (var (unavailableStart, unavailableEnd) in unavailablePeriods)
+        foreach (var unavailablePeriod in unavailablePeriods)
         {
-            if ((requestedStartDate >= unavailableStart && requestedStartDate <= unavailableEnd) ||
-                (requestedEndDate >= unavailableStart && requestedEndDate <= unavailableEnd) ||
-                (requestedStartDate <= unavailableStart && requestedEndDate >= unavailableEnd))
+            if ((requestedStartDate >= unavailablePeriod.StartDate && requestedStartDate <= unavailablePeriod.EndDate)
+                || (requestedEndDate >= unavailablePeriod.StartDate && requestedEndDate <= unavailablePeriod.EndDate)
+                || (requestedStartDate <= unavailablePeriod.StartDate && requestedEndDate >= unavailablePeriod.EndDate))
             {
                 return false;
             }

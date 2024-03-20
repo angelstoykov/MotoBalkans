@@ -1,17 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MotoBalkans.Data;
+using MotoBalkans.Web.Data.Contracts;
 using MotoBalkans.Web.Data.Models;
 using MotoBalkans.Web.Models.ViewModels;
+using MotoBalkans.Web.Utilities.Contracts;
 
 namespace MotoBalkans.Web.Controllers
 {
     public class SearchController : Controller
     {
-        private MotoBalkansDbContext _data;
-        public SearchController(MotoBalkansDbContext context)
+        private IMotoBalkansDbContext _data;
+        private IAvailabilityChecker _checker;
+        public SearchController(IMotoBalkansDbContext context,
+                                IAvailabilityChecker checker)
         {
             _data = context;
+            _checker = checker;
         }
 
         [HttpGet]
@@ -32,11 +37,35 @@ namespace MotoBalkans.Web.Controllers
         private List<AvailableMotorcyclesViewModel> GetAvailableMotorcyclesForPeriod(DateTime startDate, DateTime endDate)
         {
             // TODO: This method is not finished yet.
-            var checker = new AvailabilityChecker(_data);
+            var allMotorcycles = GetAllMotorcycles();
             var availableMotorcycles = new List<AvailableMotorcyclesViewModel>();
+
+            foreach(var motorcycle in allMotorcycles)
+            {
+                var isMotocycleAvailable = _checker.IsMotorcycleAvailable(motorcycle.Id, startDate, endDate);
+                if (isMotocycleAvailable)
+                {
+                    availableMotorcycles.Add(new AvailableMotorcyclesViewModel(motorcycle.Id, motorcycle.Model, motorcycle.Brand, 0));
+                }
+            }
+
+
 
            
             return availableMotorcycles;
+        }
+
+        private List<Motorcycle> GetAllMotorcycles()
+        {
+            return _data.Motorcycles
+                .AsNoTracking()
+                .Select(x => new Motorcycle()
+                {
+                    Id = x.Id,
+                    Brand = x.Brand,
+                    Model = x.Model,
+                })
+                .ToList();
         }
     }
 }
