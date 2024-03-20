@@ -48,7 +48,8 @@ namespace MotoBalkans.Data
                     Brand = "Honda",
                     Model = "TransAlp",
                     EngineId = 1,
-                    TransmissionId = 1
+                    TransmissionId = 1,
+                    PricePerDay = 0m
                 },
                 new Motorcycle()
                 {
@@ -56,7 +57,8 @@ namespace MotoBalkans.Data
                     Brand = "BMW",
                     Model = "F800GS Adventure",
                     EngineId = 1,
-                    TransmissionId = 1
+                    TransmissionId = 1,
+                    PricePerDay = 0m
                 },
                 new Motorcycle()
                 {
@@ -64,7 +66,8 @@ namespace MotoBalkans.Data
                     Brand = "Yamaha",
                     Model = "Tenere 700",
                     EngineId = 1,
-                    TransmissionId = 1
+                    TransmissionId = 1,
+                    PricePerDay = 0m
                 });
 
             base.OnModelCreating(builder);

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MotoBalkans.Web.Data.Models
@@ -29,5 +30,9 @@ namespace MotoBalkans.Web.Data.Models
         public Transmission Transmission { get; set; } = null!;
 
         public IList<Rental> Customers { get; set; } = new List<Rental>();
+
+        [Required]
+        [Precision(18,2)]
+        public decimal PricePerDay { get; set; }
     }
 }
