@@ -40,7 +40,7 @@ namespace MotoBalkans.Web.Controllers
             var allMotorcycles = GetAllMotorcycles();
             var availableMotorcycles = new List<AvailableMotorcyclesViewModel>();
 
-            foreach(var motorcycle in allMotorcycles)
+            foreach (var motorcycle in allMotorcycles)
             {
                 var isMotocycleAvailable = _checker.IsMotorcycleAvailable(motorcycle.Id, startDate, endDate);
                 if (isMotocycleAvailable)
@@ -48,9 +48,6 @@ namespace MotoBalkans.Web.Controllers
                     availableMotorcycles.Add(new AvailableMotorcyclesViewModel(motorcycle.Id, motorcycle.Model, motorcycle.Brand, 0));
                 }
             }
-
-
-
            
             return availableMotorcycles;
         }

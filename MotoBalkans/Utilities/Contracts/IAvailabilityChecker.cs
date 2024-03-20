@@ -6,7 +6,7 @@ namespace MotoBalkans.Web.Utilities.Contracts
     {
         void AddUnavailablePeriod(UnavailablePeriod period);
 
-        bool IsAvailable(DateTime requestedStartDate, DateTime requestedEndDate);
+        bool IsAvailable(DateTime requestedStartDate, DateTime requestedEndDate, List<UnavailablePeriod> unavailablePeriods);
 
         bool IsMotorcycleAvailable(int id, DateTime startDate, DateTime endDate);
     }

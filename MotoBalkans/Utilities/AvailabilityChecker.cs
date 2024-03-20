@@ -48,16 +48,15 @@ public class AvailabilityChecker : IAvailabilityChecker
         unavailablePeriods.Add(period);
     }
 
-    public bool IsMotorcycleAvailable(int id, DateTime startDate, DateTime endDate)
+    public bool IsMotorcycleAvailable(int motorcycleId, DateTime startDate, DateTime endDate)
     {
-        // TODO: refactor this
-        // get all unavailable period for particular motorcycle
-        // check if requested period is possible
-        // if it is return true, otherwise false
-        return true;
+        var unavailablePeriodsForMotorcycle = unavailablePeriods.Where(x => x.MotorcycleId == motorcycleId).ToList();
+        var isAvailable = IsAvailable(startDate, endDate, unavailablePeriodsForMotorcycle);
+
+        return isAvailable;
     }
 
-    public bool IsAvailable(DateTime requestedStartDate, DateTime requestedEndDate)
+    public bool IsAvailable(DateTime requestedStartDate, DateTime requestedEndDate, List<UnavailablePeriod> unavailablePeriods)
     {
         // Check if any unavailable period overlaps with the requested period
         foreach (var unavailablePeriod in unavailablePeriods)
