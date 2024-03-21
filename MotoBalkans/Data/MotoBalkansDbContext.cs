@@ -15,9 +15,6 @@ namespace MotoBalkans.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Rental>()
-                .HasKey(k => new { k.MotorcycleId, k.CustomerId });
-
-            builder.Entity<Rental>()
                 .HasOne(m => m.Motorcycle)
                 .WithMany(m => m.Customers);
 
@@ -74,8 +71,6 @@ namespace MotoBalkans.Data
         }
 
         public DbSet<Motorcycle> Motorcycles { get; set; }
-
-        public DbSet<Customer> Customers { get; set; }
 
         public DbSet<Rental> Rentals { get; set; }
 
