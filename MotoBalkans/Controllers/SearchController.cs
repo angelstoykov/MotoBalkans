@@ -51,7 +51,9 @@ namespace MotoBalkans.Web.Controllers
                     availableMotorcycles.Add(new AvailableMotorcyclesViewModel(motorcycle.Id,
                                                                                motorcycle.Model,
                                                                                motorcycle.Brand,
-                                                                               0));
+                                                                               0,
+                                                                               startDate,
+                                                                               endDate));
                 }
             }
            

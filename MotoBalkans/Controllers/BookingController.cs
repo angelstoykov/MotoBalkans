@@ -6,17 +6,19 @@ namespace MotoBalkans.Web.Controllers
 {
     public class BookingController : Controller
     {
-        public async Task<IActionResult> Book(int id)
+        [HttpPost]
+        public async Task<IActionResult> Book(int id, string startDateRequested, string endDateRequested)
         {
             var userId = GetUserId();
-            var motorcycleId = id;
 
-            var rental = new Rental()
-            {
-                CustomerId = userId,
-                MotorcycleId = motorcycleId,
-                StartDate = DateTime.Now,
-            };
+            //var motorcycleId = id;
+
+            //var rental = new Rental()
+            //{
+            //    CustomerId = userId,
+            //    MotorcycleId = motorcycleId,
+            //    StartDate = DateTime.Now,
+            //};
             return View();
         }
 

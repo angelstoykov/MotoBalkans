@@ -10,15 +10,16 @@
 <div class="text-center row">
     @foreach (var e in Model)
     {
+        Console.WriteLine(e.StartDateRequested);
+        Console.WriteLine(e.EndDateRequested);
         <div class="card col-4" style="width: 20rem; ">
             <div class="card-body">
                 <h4 class="card-title mt-1">@e.Brand</h4>
                 <h5 class="card-title mt-1">@e.Model</h5>
                 <h5 class="card-title mt-1">@e.PricePerDay EUR/day</h5>
             </div>
-
             <a asp-controller="Motorcycle" asp-action="Details" asp-route-id="@e.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Details</a>
-            <form asp-controller="Booking" asp-action="Book" asp-route-id="@e.Id">
+            <form asp-controller="Booking" asp-action="Book" asp-route-id="@e.Id" asp-route-startDateRequested="@e.StartDateRequested.ToString()" asp-route-endDateRequested="@e.EndDateRequested.ToString()">
                 <input class="btn btn-warning mb-2 w-100 p-3 fw-bold"  type="submit" value="Book Now" />
             </form>
             @* @if (User?.Identity?.Name == e.Organizer)
