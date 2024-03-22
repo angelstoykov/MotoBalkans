@@ -6,7 +6,7 @@ namespace MotoBalkans.Web.Controllers
 {
     public class BookingController : Controller
     {
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> Book(int id, string startDateRequested, string endDateRequested)
         {
             var userId = GetUserId();
