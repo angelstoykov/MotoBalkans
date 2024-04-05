@@ -1,0 +1,25 @@
+﻿@model AvailableMotorcyclesViewModel
+
+<form asp-controller="Booking" asp-action="Book" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <label asp-for="Brand" class="form-label-add-edit">Brand</label>
+    <input asp-for="Brand" class="form-control" aria-required="true" />
+
+    <label asp-for="Model" class="form-label-add-edit">Model</label>
+    <input asp-for="Model" class="form-control" aria-required="true" />
+
+    <label asp-for="PricePerDay" class="form-label-add-edit">Price Per Day</label>
+    <input asp-for="PricePerDay" class="form-control" aria-required="true" />
+
+    <label asp-for="StartDateRequested"></label>
+    <input class="form-control" type="date" asp-for="StartDateRequested" />
+
+    <label asp-for="EndDateRequested"></label>
+    <input class="form-control" type="date" asp-for="EndDateRequested" />
+
+    <div class="mb-3">
+        <input class="btn btn-warning mb-2 w-100 p-3 fw-bold" type="submit" value="Book now" />
+    </div>
+    <a asp-controller="Motorcycle" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Details</a>
+</form>

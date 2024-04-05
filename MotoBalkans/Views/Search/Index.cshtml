@@ -7,9 +7,11 @@
 <form asp-action="Search" method="post">
     <label asp-for="@Model.StartDate"></label>
     <input class="form-control" type="date" asp-for="@Model.StartDate" />
+    <span asp-validation-for="@Model.StartDate" class="text-danger"></span>
 
     <label asp-for="@Model.EndDate"></label>
     <input class="form-control" type="date" asp-for="@Model.EndDate" />
+    <span asp-validation-for="@Model.EndDate" class="text-danger"></span>
 
     <div class="mb-3">
         <input class="btn btn-warning mb-2 w-100 p-3 fw-bold" type="submit" value="Search" />

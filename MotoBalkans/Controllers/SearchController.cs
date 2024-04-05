@@ -28,9 +28,14 @@ namespace MotoBalkans.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Search(DateTime startDate, DateTime endDate)
+        public async Task<IActionResult> Search(SearchViewModel model)
         {
-            var availableMotorcycles = GetAvailableMotorcyclesForPeriod(startDate, endDate);
+            if (!ModelState.IsValid)
+            {
+                return View("Index");
+            }
+
+            var availableMotorcycles = GetAvailableMotorcyclesForPeriod(model.StartDate, model.EndDate);
             return View("AvailableMotorcycles", availableMotorcycles);
         }
 
@@ -56,7 +61,7 @@ namespace MotoBalkans.Web.Controllers
                                                                                endDate));
                 }
             }
-           
+
             return availableMotorcycles;
         }
 

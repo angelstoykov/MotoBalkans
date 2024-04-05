@@ -8,35 +8,24 @@
 <hr />
 
 <div class="text-center row">
-    @foreach (var e in Model)
+    @foreach (var item in Model)
     {
-        <div class="card col-4" style="width: 20rem; ">
+        <div class="card col-4" style="width: 20rem;">
             <div class="card-body">
-                <h4 class="card-title mt-1">@e.Brand</h4>
-                <h5 class="card-title mt-1">@e.Model</h5>
-                <h5 class="card-title mt-1">@e.PricePerDay EUR/day</h5>
+                @await Html.PartialAsync("_MotorcycleFormPartial", item)
             </div>
-            <a asp-controller="Motorcycle" asp-action="Details" asp-route-id="@e.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Details</a>
-            <a
-                asp-controller="Booking"
-                asp-action="Book"
-                asp-route-id="@e.Id"
-                asp-route-startDateRequested="@e.StartDateRequested.ToString()" 
-                asp-route-endDateRequested="@e.EndDateRequested.ToString()"
-                class="btn btn-warning mb-2 w-100 p-3 fw-bold"
-            >Book now</a>
-            @* @if (User?.Identity?.Name == e.Organizer)
-        {
-        <a asp-controller="Seminar" asp-action="Edit" asp-route-id="@e.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Edit</a>
-        }
-        else
-        {
-        <form class="input-group-sm" asp-controller="Seminar" asp-action="Join" asp-route-id="@e.Id">
-        <input type="submit" value="Subscribe" class="fs-6 btn btn-warning mb-2 w-100 p-3 fw-bold" />
-        </form>
-        } *@
         </div>
     }
+        @* @if (User?.Identity?.Name == e.Organizer)
+    {
+    <a asp-controller="Seminar" asp-action="Edit" asp-route-id="@e.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Edit</a>
+    }
+    else
+    {
+    <form class="input-group-sm" asp-controller="Seminar" asp-action="Join" asp-route-id="@e.Id">
+    <input type="submit" value="Subscribe" class="fs-6 btn btn-warning mb-2 w-100 p-3 fw-bold" />
+    </form>
+    } *@
 </div>
 
 @section Scripts {

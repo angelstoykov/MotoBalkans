@@ -2,6 +2,11 @@
 {
     public class AvailableMotorcyclesViewModel
     {
+        public AvailableMotorcyclesViewModel()
+        {
+            
+        }
+
         public AvailableMotorcyclesViewModel(
             int id,
             string brand,

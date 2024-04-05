@@ -10,9 +10,12 @@ namespace MotoBalkans.Web.Models.ViewModels
             this.StartDate = DateTime.Now;
             this.EndDate = DateTime.Now.AddDays(1);
         }
-        
+
+        [Required(ErrorMessage = "Start Date is required.")]
         public DateTime StartDate { get; set; }
 
+        [Required(ErrorMessage = "End Date is required.")]
+        [GreaterThan(nameof(StartDate), ErrorMessage = "End Date must be greater than Start Date.")]
         public DateTime EndDate { get; set; }
     }
 }

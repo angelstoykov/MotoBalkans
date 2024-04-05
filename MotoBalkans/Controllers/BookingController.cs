@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MotoBalkans.Data;
-using MotoBalkans.Web.Data.Constants;
-using MotoBalkans.Web.Data.Contracts;
 using MotoBalkans.Web.Data.Models;
-using System.Globalization;
+using MotoBalkans.Web.Models.ViewModels;
 using System.Security.Claims;
 
 namespace MotoBalkans.Web.Controllers
@@ -17,42 +15,21 @@ namespace MotoBalkans.Web.Controllers
             _data = context;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Book(int id, string startDateRequested, string endDateRequested)
+        [HttpPost]
+        public async Task<IActionResult> Book(AvailableMotorcyclesViewModel availableMotorcycle)
         {
-            var rental = new Rental();
-            var userId = GetUserId();
-            var culture = new CultureInfo("bg-BG");
-
-            var motorcycleId = id;
-
-            var startDateRequestedParsed = DateTime.Now;
-            var endDateRequestedParsed = DateTime.Now;
-            if (!DateTime.TryParse(startDateRequested,
-                 culture,
-                 DateTimeStyles.None,
-                 out startDateRequestedParsed))
-            {
-                ModelState.AddModelError(nameof(rental.StartDate), ValidationMessages.DateIsInWrongFormat);
-            }
-
-            if (!DateTime.TryParse(endDateRequested,
-                 culture,
-                 DateTimeStyles.None,
-                 out endDateRequestedParsed))
-            {
-                ModelState.AddModelError(nameof(rental.EndDate), ValidationMessages.DateIsInWrongFormat);
-            }
-
             if (!ModelState.IsValid)
             {
                 return View();
             }
 
+            var rental = new Rental();
+            var userId = GetUserId();
+
             rental.CustomerId = userId;
-            rental.MotorcycleId = motorcycleId;
-            rental.StartDate = startDateRequestedParsed;
-            rental.EndDate = endDateRequestedParsed;
+            rental.MotorcycleId = availableMotorcycle.Id;
+            rental.StartDate = availableMotorcycle.StartDateRequested;
+            rental.EndDate = availableMotorcycle.EndDateRequested;
 
             await _data.Rentals.AddAsync(rental);
             await _data.SaveChangesAsync();
