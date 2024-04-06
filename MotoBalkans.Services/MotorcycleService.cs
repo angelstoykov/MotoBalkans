@@ -37,5 +37,15 @@ namespace MotoBalkans.Services
                 .AsNoTracking()
                 .ToListAsync();
         }
+
+        public async Task<Motorcycle> GetMotorcycleDetailsById(int id)
+        {
+            return await _data.Motorcycles
+               .AsNoTracking()
+               .Where(x => x.Id == id)
+               .Include(e => e.Engine)
+               .Include(t => t.Transmission)
+               .FirstOrDefaultAsync();
+        }
     }
 }

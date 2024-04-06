@@ -13,5 +13,6 @@ namespace MotoBalkans.Services.Contracts
 
         Task<IEnumerable<Engine>> GetEngineTypes();
         Task<IEnumerable<Transmission>> GetTransmissionTypes();
+        Task<Motorcycle> GetMotorcycleDetailsById(int id);
     }
 }

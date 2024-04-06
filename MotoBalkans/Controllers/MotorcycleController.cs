@@ -106,20 +106,15 @@ namespace MotoBalkans.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
-            var detailsModel = await _data.Motorcycles
-                .AsNoTracking()
-                .Where(x => x.Id == id)
-                .Include(e => e.Engine)
-                .Include(t => t.Transmission)
-                .Select(m => new MotorcycleDetailsViewModel()
-                {
-                    Id = m.Id,
-                    Brand = m.Brand,
-                    Model = m.Model,
-                    EngineType = m.Engine.EngineType,
-                    TransmissionType = m.Transmission.TransmissionType,
-                })
-                .FirstOrDefaultAsync();
+            var motorcycle = await _motorcycleService.GetMotorcycleDetailsById(id);
+            var detailsModel = new MotorcycleDetailsViewModel()
+            {
+                Id = motorcycle.Id,
+                Brand = motorcycle.Brand,
+                Model = motorcycle.Model,
+                EngineType = motorcycle.Engine.EngineType,
+                TransmissionType = motorcycle.Transmission.TransmissionType
+            };
 
             return View(detailsModel);
         }
