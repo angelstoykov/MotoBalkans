@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MotoBalkans.Web", "MotoBalkans\MotoBalkans.Web.csproj", "{936B0118-4B39-40E3-8948-CCFE9A1123F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotoBalkans.Web", "MotoBalkans\MotoBalkans.Web.csproj", "{936B0118-4B39-40E3-8948-CCFE9A1123F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MotoBalkans.Services", "MotoBalkans.Services\MotoBalkans.Services.csproj", "{5C30167E-F8D3-4545-B7A0-E92A252EA57A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotoBalkans.Services", "MotoBalkans.Services\MotoBalkans.Services.csproj", "{5C30167E-F8D3-4545-B7A0-E92A252EA57A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotoBalkans.Data", "MotoBalkans.Data\MotoBalkans.Data.csproj", "{48E76509-D9C4-4242-BA4C-95F7693C8451}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{5C30167E-F8D3-4545-B7A0-E92A252EA57A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C30167E-F8D3-4545-B7A0-E92A252EA57A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C30167E-F8D3-4545-B7A0-E92A252EA57A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48E76509-D9C4-4242-BA4C-95F7693C8451}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48E76509-D9C4-4242-BA4C-95F7693C8451}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48E76509-D9C4-4242-BA4C-95F7693C8451}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48E76509-D9C4-4242-BA4C-95F7693C8451}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
