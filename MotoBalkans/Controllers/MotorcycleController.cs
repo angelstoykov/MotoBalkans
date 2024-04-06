@@ -11,26 +11,29 @@ namespace MotoBalkans.Web.Controllers
     public class MotorcycleController : Controller
     {
         private MotoBalkansDbContext _data;
+        private IMotorcycleService _motorcycleService;
 
         public MotorcycleController(MotoBalkansDbContext context, IMotorcycleService motorcycleService)
         {
             _data = context;
+            _motorcycleService = motorcycleService;
         }
 
         [HttpGet]
         public async Task<IActionResult> All()
         {
-            var motorcycles = await _data.Motorcycles
-                .AsNoTracking()
+            var allMotorcyclesFromDb = await _motorcycleService.GetAllMotorcycles();
+
+            var model = allMotorcyclesFromDb
                 .Select(m => new AllMotorcyclesViewModel(
                     m.Id,
                     m.Brand,
                     m.Model,
-                    99
+                    m.PricePerDay
                     ))
-                .ToListAsync();
+                .ToList();
 
-            return View(motorcycles);
+            return View(model);
         }
 
         [HttpGet]

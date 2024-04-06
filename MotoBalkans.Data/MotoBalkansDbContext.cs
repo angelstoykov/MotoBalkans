@@ -46,7 +46,7 @@ namespace MotoBalkans.Data
                     Model = "TransAlp",
                     EngineId = 1,
                     TransmissionId = 1,
-                    PricePerDay = 0m
+                    PricePerDay = 100m
                 },
                 new Motorcycle()
                 {
@@ -55,7 +55,7 @@ namespace MotoBalkans.Data
                     Model = "F800GS Adventure",
                     EngineId = 1,
                     TransmissionId = 1,
-                    PricePerDay = 0m
+                    PricePerDay = 150m
                 },
                 new Motorcycle()
                 {
@@ -64,7 +64,7 @@ namespace MotoBalkans.Data
                     Model = "Tenere 700",
                     EngineId = 1,
                     TransmissionId = 1,
-                    PricePerDay = 0m
+                    PricePerDay = 200m
                 });
 
             base.OnModelCreating(builder);
