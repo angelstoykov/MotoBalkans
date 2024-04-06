@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MotoBalkans.Services.Contracts;
 using MotoBalkans.Web.Data.Contracts;
+using MotoBalkans.Web.Data.Enums;
 using MotoBalkans.Web.Data.Models;
 
 namespace MotoBalkans.Services
@@ -20,6 +21,13 @@ namespace MotoBalkans.Services
                 .AsNoTracking()
                 .ToListAsync();
             return result;
+        }
+
+        public async Task<IEnumerable<Engine>> GetEngineTypes()
+        {
+            return await _data.Engines
+                .AsNoTracking()
+                .ToListAsync();
         }
     }
 }

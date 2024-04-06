@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MotoBalkans.Data;
 using MotoBalkans.Services.Contracts;
@@ -8,6 +9,7 @@ using MotoBalkans.Web.Models.ViewModels;
 
 namespace MotoBalkans.Web.Controllers
 {
+    [Authorize]
     public class MotorcycleController : Controller
     {
         private MotoBalkansDbContext _data;
@@ -41,7 +43,15 @@ namespace MotoBalkans.Web.Controllers
         {
             var viewModel = new AddNewMotocycleFormViewModel();
 
-            viewModel.EngineTypes = await GetEngineTypes();
+            var engineTypes = await _motorcycleService.GetEngineTypes();
+
+            viewModel.EngineTypes = engineTypes
+                .Select(c => new EngineViewModel()
+                {
+                    Id = c.Id,
+                    Type = c.EngineType
+                });
+
             viewModel.TransmissionTypes = await GetTransmissionTypes();
 
 
@@ -53,7 +63,15 @@ namespace MotoBalkans.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                createMotorcycleModel.EngineTypes = await GetEngineTypes();
+                var engineTypes = await _motorcycleService.GetEngineTypes();
+
+                createMotorcycleModel.EngineTypes = engineTypes
+                .Select(c => new EngineViewModel()
+                {
+                    Id = c.Id,
+                    Type = c.EngineType
+                });
+
                 createMotorcycleModel.TransmissionTypes = await GetTransmissionTypes();
 
                 return View(createMotorcycleModel);
@@ -103,19 +121,6 @@ namespace MotoBalkans.Web.Controllers
                 {
                     Id = c.Id,
                     Type = c.TransmissionType
-                })
-                .ToListAsync();
-        }
-
-        private async Task<IEnumerable<EngineViewModel>> GetEngineTypes()
-        {
-            return await _data
-                .Engines
-                .AsNoTracking()
-                .Select(c => new EngineViewModel()
-                {
-                    Id = c.Id,
-                    Type = c.EngineType
                 })
                 .ToListAsync();
         }

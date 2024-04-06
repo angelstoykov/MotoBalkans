@@ -10,5 +10,7 @@ namespace MotoBalkans.Services.Contracts
     public interface IMotorcycleService
     {
         Task<IEnumerable<Motorcycle>> GetAllMotorcycles();
+
+        Task<IEnumerable<Engine>> GetEngineTypes();
     }
 }
