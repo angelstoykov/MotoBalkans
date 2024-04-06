@@ -15,11 +15,6 @@ namespace MotoBalkans.Controllers
 
         public IActionResult Index()
         {
-            if (User?.Identity != null && User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Index", "Search");
-            }
-
             return View();
         }
 

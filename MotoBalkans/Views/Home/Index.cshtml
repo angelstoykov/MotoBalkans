@@ -4,10 +4,14 @@
 
 <div class="text-center">
     <h1 class="display-4">MotoBalkans</h1>
-    <h3>Защо ние?</h3>
+    <h3>Why us?</h3>
     <ul class="">
-        <li">Чисто нови мотоциклети.</li>
-        <li>Нови приключения.</li>
-        <li>Подобрете вашите умения.</li>
+        <li>Brand new bikes!</li>
+        <li>Brand new adventures!</li>
+        <li>Brand new skills!</li>
     </ul>
+    @if (User?.Identity?.Name != null)
+    {
+        <a asp-controller="Search" asp-action="Index" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Go!!!</a>
+    }
 </div>
