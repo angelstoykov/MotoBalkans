@@ -42,12 +42,23 @@ namespace MotoBalkans.Web.Controllers
         {
             string userId = GetUserId();
 
+            
+
             var model = await _data.Rentals
-                .Where(sp => sp.CustomerId == userId)
                 .AsNoTracking()
+                .Include(x => x.Customer)
+                .Include(x => x.Motorcycle)
+                .Where(sp => sp.CustomerId == userId)
+                .Select(x => new MyBookingsViewModel()
+                {
+                    Customer = x.Customer,
+                    Motorcycle = x.Motorcycle,
+                    StartDate = x.StartDate,
+                    EndDate = x.EndDate
+                })
                 .ToListAsync();
 
-            return null;
+            return View(model);
         }
 
         private string GetUserId()
