@@ -52,7 +52,13 @@ namespace MotoBalkans.Web.Controllers
                     Type = c.EngineType
                 });
 
-            viewModel.TransmissionTypes = await GetTransmissionTypes();
+            var transmissionTypes = await _motorcycleService.GetTransmissionTypes();
+            viewModel.TransmissionTypes = transmissionTypes
+                .Select(c => new TransmissionViewModel()
+                {
+                    Id = c.Id,
+                    Type = c.TransmissionType
+                });
 
 
             return View(viewModel);
@@ -72,7 +78,13 @@ namespace MotoBalkans.Web.Controllers
                     Type = c.EngineType
                 });
 
-                createMotorcycleModel.TransmissionTypes = await GetTransmissionTypes();
+                var transmissionTypes = await _motorcycleService.GetTransmissionTypes();
+                createMotorcycleModel.TransmissionTypes = transmissionTypes
+                    .Select(c => new TransmissionViewModel()
+                    {
+                        Id = c.Id,
+                        Type = c.TransmissionType
+                    });
 
                 return View(createMotorcycleModel);
             }
@@ -110,19 +122,6 @@ namespace MotoBalkans.Web.Controllers
                 .FirstOrDefaultAsync();
 
             return View(detailsModel);
-        }
-
-        private async Task<IEnumerable<TransmissionViewModel>> GetTransmissionTypes()
-        {
-            return await _data
-                .Transmissions
-                .AsNoTracking()
-                .Select(c => new TransmissionViewModel()
-                {
-                    Id = c.Id,
-                    Type = c.TransmissionType
-                })
-                .ToListAsync();
         }
     }
 }

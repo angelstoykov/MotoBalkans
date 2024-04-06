@@ -29,5 +29,13 @@ namespace MotoBalkans.Services
                 .AsNoTracking()
                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<Transmission>> GetTransmissionTypes()
+        {
+            return await _data
+                .Transmissions
+                .AsNoTracking()
+                .ToListAsync();
+        }
     }
 }
