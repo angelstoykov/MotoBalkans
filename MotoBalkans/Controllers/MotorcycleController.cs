@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MotoBalkans.Data;
+using MotoBalkans.Services.Contracts;
 using MotoBalkans.Web.Data.Enums;
 using MotoBalkans.Web.Data.Models;
 using MotoBalkans.Web.Models.ViewModels;
@@ -11,7 +12,7 @@ namespace MotoBalkans.Web.Controllers
     {
         private MotoBalkansDbContext _data;
 
-        public MotorcycleController(MotoBalkansDbContext context)
+        public MotorcycleController(MotoBalkansDbContext context, IMotorcycleService motorcycleService)
         {
             _data = context;
         }

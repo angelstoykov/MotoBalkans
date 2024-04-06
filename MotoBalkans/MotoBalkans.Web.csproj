@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MotoBalkans.Data\MotoBalkans.Data.csproj" />
+    <ProjectReference Include="..\MotoBalkans.Services\MotoBalkans.Services.csproj" />
   </ItemGroup>
 
 </Project>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MotoBalkans.Services.Contracts
 {
-    internal interface IMotorcycleService
+    public interface IMotorcycleService
     {
     }
 }
