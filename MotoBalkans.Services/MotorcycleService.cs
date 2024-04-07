@@ -9,7 +9,6 @@ namespace MotoBalkans.Services
 {
     public class MotorcycleService : IMotorcycleService
     {
-        private IMotoBalkansDbContext _data;
         private readonly IRepository<Motorcycle> _motorcycleRepository;
         private readonly IRepository<Engine> _engineRepository;
         private readonly IRepository<Transmission> _transmissionRepository;
@@ -19,7 +18,6 @@ namespace MotoBalkans.Services
             IRepository<Engine> engineRepository,
             IRepository<Transmission> transmissionRepository)
         {
-            _data = context;
             _motorcycleRepository = motorcycleRepository;
             _engineRepository = engineRepository;
             _transmissionRepository = transmissionRepository;
@@ -27,17 +25,12 @@ namespace MotoBalkans.Services
 
         public async Task<IEnumerable<Motorcycle>> GetAllMotorcycles()
         {
-            var result = await _data.Motorcycles
-                .AsNoTracking()
-                .ToListAsync();
-            return result;
+            return await _motorcycleRepository.GetAll();
         }
 
         public async Task<IEnumerable<Engine>> GetEngineTypes()
         {
-            return await _data.Engines
-                .AsNoTracking()
-                .ToListAsync();
+            return await _engineRepository.GetAll();
         }
 
         public async Task<IEnumerable<Transmission>> GetTransmissionTypes()
