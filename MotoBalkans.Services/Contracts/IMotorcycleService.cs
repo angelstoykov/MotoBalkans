@@ -9,9 +9,9 @@ namespace MotoBalkans.Services.Contracts
 
         Task<IEnumerable<Engine>> GetEngineTypes();
         Task<IEnumerable<Transmission>> GetTransmissionTypes();
+        Task<Motorcycle> GetMotorcycleById(int id);
         Task<Motorcycle> GetMotorcycleDetailsById(int id);
         Task CreateNewMotorcycle(Motorcycle motorcycle);
-
         Task<IEnumerable<AvailableMotorcycleDTO>> GetAvailableMotorcyclesForPeriod(DateTime startDate, DateTime endDate);
     }
 }

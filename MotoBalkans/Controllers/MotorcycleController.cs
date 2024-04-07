@@ -117,5 +117,52 @@ namespace MotoBalkans.Web.Controllers
 
             return View(detailsModel);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var motorcycle = await _motorcycleService.GetMotorcycleById(id);
+            if (motorcycle == null)
+            {
+                return BadRequest();
+            }
+
+            //if (motorcycle != GetUserId())
+            //{
+            //    return Unauthorized();
+            //}
+
+            var model = new DeleteMotorcycleViewModel()
+            {
+                Id = motorcycle.Id,
+                Brand = motorcycle.Brand,
+                Model = motorcycle.Model
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            // TODO: Finish Delete
+            // check if it has Rentals etc. relations then delete
+            var motorcycle = await _motorcycleService.GetMotorcycleById(id);
+
+            if (motorcycle == null)
+            {
+                return BadRequest();
+            }
+
+            //if (seminar.OrganizerId != GetUserId())
+            //{
+            //    return Unauthorized();
+            //}
+
+            //_data.Seminars.Remove(seminar);
+            //await _data.SaveChangesAsync();
+
+            return RedirectToAction("All", "Seminar");
+        }
     }
 }

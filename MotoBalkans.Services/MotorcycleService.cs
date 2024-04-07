@@ -84,5 +84,10 @@ namespace MotoBalkans.Services
 
             return availableMotorcycles;
         }
+
+        public async Task<Motorcycle> GetMotorcycleById(int id)
+        {
+            return await GetMotorcycleDetailsById(id);
+        }
     }
 }
