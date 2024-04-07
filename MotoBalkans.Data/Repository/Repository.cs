@@ -19,7 +19,7 @@ namespace MotoBalkans.Data.Repository
             _dbSet = context.Set<TEntity>();
         }
 
-        public TEntity GetById(int id)
+        public async Task<TEntity> GetById(int id)
         {
             return _dbSet.Find(id);
         }

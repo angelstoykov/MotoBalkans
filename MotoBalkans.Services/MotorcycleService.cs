@@ -11,12 +11,18 @@ namespace MotoBalkans.Services
     {
         private IMotoBalkansDbContext _data;
         private readonly IRepository<Motorcycle> _motorcycleRepository;
+        private readonly IRepository<Engine> _engineRepository;
+        private readonly IRepository<Transmission> _transmissionRepository;
 
         public MotorcycleService(IMotoBalkansDbContext context,
-            IRepository<Motorcycle> motorcycleRepository)
+            IRepository<Motorcycle> motorcycleRepository,
+            IRepository<Engine> engineRepository,
+            IRepository<Transmission> transmissionRepository)
         {
             _data = context;
             _motorcycleRepository = motorcycleRepository;
+            _engineRepository = engineRepository;
+            _transmissionRepository = transmissionRepository;
         }
 
         public async Task<IEnumerable<Motorcycle>> GetAllMotorcycles()
@@ -44,12 +50,13 @@ namespace MotoBalkans.Services
 
         public async Task<Motorcycle> GetMotorcycleDetailsById(int id)
         {
-            return await _data.Motorcycles
-               .AsNoTracking()
-               .Where(x => x.Id == id)
-               .Include(e => e.Engine)
-               .Include(t => t.Transmission)
-               .FirstOrDefaultAsync();
+            var motorcycle = await _motorcycleRepository.GetById(id);
+            var engine = await _engineRepository.GetById(motorcycle.EngineId);
+            motorcycle.Engine = engine;
+            var transmission = await _transmissionRepository.GetById(motorcycle.TransmissionId);
+            motorcycle.Transmission = transmission;
+
+            return motorcycle;
         }
 
         public async Task CreateNewMotorcycle(Motorcycle motorcycle)

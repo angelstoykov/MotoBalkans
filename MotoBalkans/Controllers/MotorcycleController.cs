@@ -99,7 +99,6 @@ namespace MotoBalkans.Web.Controllers
 
             await _motorcycleService.CreateNewMotorcycle(motorcycle);
             
-
             return RedirectToAction("All", "Motorcycle");
         }
 

@@ -30,6 +30,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IMotoBalkansDbContext, MotoBalkansDbContext>();
 builder.Services.AddScoped<IAvailabilityChecker, AvailabilityChecker>();
 builder.Services.AddScoped<IRepository<Motorcycle>, Repository<Motorcycle>>();
+builder.Services.AddScoped<IRepository<Engine>, Repository<Engine>>();
+builder.Services.AddScoped<IRepository<Transmission>, Repository<Transmission>>();
 builder.Services.AddScoped<IMotorcycleService, MotorcycleService>();
 
 var app = builder.Build();
