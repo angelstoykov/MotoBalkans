@@ -97,8 +97,8 @@ namespace MotoBalkans.Web.Controllers
                 TransmissionId = createMotorcycleModel.TransmissionId
             };
 
-            await _data.Motorcycles.AddAsync(motorcycle);
-            await _data.SaveChangesAsync();
+            await _motorcycleService.CreateNewMotorcycle(motorcycle);
+            
 
             return RedirectToAction("All", "Motorcycle");
         }

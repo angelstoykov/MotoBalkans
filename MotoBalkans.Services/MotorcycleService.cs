@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MotoBalkans.Data.Contracts;
 using MotoBalkans.Services.Contracts;
 using MotoBalkans.Web.Data.Contracts;
 using MotoBalkans.Web.Data.Enums;
@@ -9,10 +10,13 @@ namespace MotoBalkans.Services
     public class MotorcycleService : IMotorcycleService
     {
         private IMotoBalkansDbContext _data;
+        private readonly IRepository<Motorcycle> _motorcycleRepository;
 
-        public MotorcycleService(IMotoBalkansDbContext context)
+        public MotorcycleService(IMotoBalkansDbContext context,
+            IRepository<Motorcycle> motorcycleRepository)
         {
-            _data = context;    
+            _data = context;
+            _motorcycleRepository = motorcycleRepository;
         }
 
         public async Task<IEnumerable<Motorcycle>> GetAllMotorcycles()
@@ -46,6 +50,11 @@ namespace MotoBalkans.Services
                .Include(e => e.Engine)
                .Include(t => t.Transmission)
                .FirstOrDefaultAsync();
+        }
+
+        public async Task CreateNewMotorcycle(Motorcycle motorcycle)
+        {
+            _motorcycleRepository.Add(motorcycle);
         }
     }
 }

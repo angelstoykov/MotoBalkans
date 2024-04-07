@@ -1,9 +1,12 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MotoBalkans.Data;
+using MotoBalkans.Data.Contracts;
+using MotoBalkans.Data.Repository;
 using MotoBalkans.Services;
 using MotoBalkans.Services.Contracts;
 using MotoBalkans.Web.Data.Contracts;
+using MotoBalkans.Web.Data.Models;
 using MotoBalkans.Web.Utilities.Contracts;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,6 +29,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IMotoBalkansDbContext, MotoBalkansDbContext>();
 builder.Services.AddScoped<IAvailabilityChecker, AvailabilityChecker>();
+builder.Services.AddScoped<IRepository<Motorcycle>, Repository<Motorcycle>>();
 builder.Services.AddScoped<IMotorcycleService, MotorcycleService>();
 
 var app = builder.Build();
