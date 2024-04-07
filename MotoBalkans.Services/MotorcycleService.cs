@@ -51,8 +51,10 @@ namespace MotoBalkans.Services
         public async Task<Motorcycle> GetMotorcycleDetailsById(int id)
         {
             var motorcycle = await _motorcycleRepository.GetById(id);
+
             var engine = await _engineRepository.GetById(motorcycle.EngineId);
             motorcycle.Engine = engine;
+
             var transmission = await _transmissionRepository.GetById(motorcycle.TransmissionId);
             motorcycle.Transmission = transmission;
 
