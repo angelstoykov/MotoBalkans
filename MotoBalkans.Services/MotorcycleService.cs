@@ -42,10 +42,7 @@ namespace MotoBalkans.Services
 
         public async Task<IEnumerable<Transmission>> GetTransmissionTypes()
         {
-            return await _data
-                .Transmissions
-                .AsNoTracking()
-                .ToListAsync();
+            return await _transmissionRepository.GetAll();
         }
 
         public async Task<Motorcycle> GetMotorcycleDetailsById(int id)

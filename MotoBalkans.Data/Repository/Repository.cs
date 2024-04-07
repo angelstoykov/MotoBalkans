@@ -24,7 +24,7 @@ namespace MotoBalkans.Data.Repository
             return _dbSet.Find(id);
         }
 
-        public IEnumerable<TEntity> GetAll()
+        public async Task<IEnumerable<TEntity>> GetAll()
         {
             return _dbSet.ToList();
         }
