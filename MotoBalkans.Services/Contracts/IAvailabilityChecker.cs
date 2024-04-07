@@ -1,6 +1,6 @@
-﻿using MotoBalkans.Web.Models.Utilities;
+﻿using MotoBalkans.Services.Models;
 
-namespace MotoBalkans.Web.Utilities.Contracts
+namespace MotoBalkans.Services.Contracts
 {
     public interface IAvailabilityChecker
     {

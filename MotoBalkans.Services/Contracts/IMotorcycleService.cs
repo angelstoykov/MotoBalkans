@@ -1,9 +1,5 @@
-﻿using MotoBalkans.Web.Data.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MotoBalkans.Services.Models;
+using MotoBalkans.Web.Data.Models;
 
 namespace MotoBalkans.Services.Contracts
 {
@@ -15,5 +11,7 @@ namespace MotoBalkans.Services.Contracts
         Task<IEnumerable<Transmission>> GetTransmissionTypes();
         Task<Motorcycle> GetMotorcycleDetailsById(int id);
         Task CreateNewMotorcycle(Motorcycle motorcycle);
+
+        Task<IEnumerable<AvailableMotorcycleDTO>> GetAvailableMotorcyclesForPeriod(DateTime startDate, DateTime endDate);
     }
 }

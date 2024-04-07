@@ -1,22 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using MotoBalkans.Data;
+using MotoBalkans.Services.Contracts;
 using MotoBalkans.Web.Data.Contracts;
-using MotoBalkans.Web.Data.Models;
 using MotoBalkans.Web.Models.ViewModels;
-using MotoBalkans.Web.Utilities.Contracts;
 
 namespace MotoBalkans.Web.Controllers
 {
     public class SearchController : Controller
     {
         private IMotoBalkansDbContext _data;
-        private IAvailabilityChecker _checker;
+        private IMotorcycleService _motorcycleService;
+
         public SearchController(IMotoBalkansDbContext context,
-                                IAvailabilityChecker checker)
+                                IMotorcycleService motorcycleService)
         {
             _data = context;
-            _checker = checker;
+            _motorcycleService = motorcycleService;
         }
 
         [HttpGet]
@@ -35,47 +33,25 @@ namespace MotoBalkans.Web.Controllers
                 return View("Index");
             }
 
-            var availableMotorcycles = GetAvailableMotorcyclesForPeriod(model.StartDate, model.EndDate);
-            return View("AvailableMotorcycles", availableMotorcycles);
-        }
+            var availableMotorcycles = _motorcycleService.GetAvailableMotorcyclesForPeriod(model.StartDate, model.EndDate);
+            var availableMotorcyclesViewModel = new List<AvailableMotorcyclesViewModel>();
 
-        private List<AvailableMotorcyclesViewModel> GetAvailableMotorcyclesForPeriod(DateTime startDate, DateTime endDate)
-        {
-            // TODO: This method is not finished yet.
-            var allMotorcycles = GetAllMotorcycles();
-            var availableMotorcycles = new List<AvailableMotorcyclesViewModel>();
-
-            foreach (var motorcycle in allMotorcycles)
+            foreach(var item in availableMotorcycles.Result)
             {
-                var isMotocycleAvailable = _checker.IsMotorcycleAvailable(motorcycle.Id,
-                                                                          startDate,
-                                                                          endDate);
-
-                if (isMotocycleAvailable)
+                var availableMotorcycleViewModel = new AvailableMotorcyclesViewModel()
                 {
-                    availableMotorcycles.Add(new AvailableMotorcyclesViewModel(motorcycle.Id,
-                                                                               motorcycle.Model,
-                                                                               motorcycle.Brand,
-                                                                               0,
-                                                                               startDate,
-                                                                               endDate));
-                }
+                    Id = item.Id,
+                    Brand = item.Brand,
+                    Model = item.Model,
+                    StartDateRequested = item.StartDateRequested,
+                    EndDateRequested = item.EndDateRequested,
+                    PricePerDay = item.PricePerDay
+                };
+
+                availableMotorcyclesViewModel.Add(availableMotorcycleViewModel);
             }
-
-            return availableMotorcycles;
-        }
-
-        private List<Motorcycle> GetAllMotorcycles()
-        {
-            return _data.Motorcycles
-                .AsNoTracking()
-                .Select(x => new Motorcycle()
-                {
-                    Id = x.Id,
-                    Brand = x.Brand,
-                    Model = x.Model,
-                })
-                .ToList();
+            
+            return View("AvailableMotorcycles", availableMotorcyclesViewModel);
         }
     }
 }

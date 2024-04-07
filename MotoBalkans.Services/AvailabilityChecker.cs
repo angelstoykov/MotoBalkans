@@ -1,10 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MotoBalkans.Data;
+﻿using MotoBalkans.Services.Contracts;
+using MotoBalkans.Services.Models;
 using MotoBalkans.Web.Data.Contracts;
-using MotoBalkans.Web.Models.Utilities;
-using MotoBalkans.Web.Utilities.Contracts;
-using System;
-using System.Collections.Generic;
 
 public class AvailabilityChecker : IAvailabilityChecker
 {
