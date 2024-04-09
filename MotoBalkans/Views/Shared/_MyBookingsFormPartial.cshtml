@@ -13,4 +13,5 @@
     <input class="form-control" type="date" asp-for="EndDate" />
 
     <a asp-controller="Motorcycle" asp-action="Details" asp-route-id="@Model.Motorcycle.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Details</a>
+    <a asp-controller="Rental" asp-action="Delete" asp-route-id="@Model.RentalId" class="btn btn-danger mb-2 w-100 p-3 fw-bold">Delete</a>
 </div>

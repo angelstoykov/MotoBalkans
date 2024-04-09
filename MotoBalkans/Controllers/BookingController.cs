@@ -54,7 +54,8 @@ namespace MotoBalkans.Web.Controllers
                     Customer = x.Customer,
                     Motorcycle = x.Motorcycle,
                     StartDate = x.StartDate,
-                    EndDate = x.EndDate
+                    EndDate = x.EndDate,
+                    RentalId = x.Id
                 })
                 .ToListAsync();
 

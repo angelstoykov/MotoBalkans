@@ -5,6 +5,8 @@ namespace MotoBalkans.Web.Models.ViewModels
 {
     public class MyBookingsViewModel
     {
+        public int RentalId { get; set; }
+
         public Motorcycle Motorcycle { get; set; }
 
         public IdentityUser Customer { get; set; }
