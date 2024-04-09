@@ -29,10 +29,10 @@ namespace MotoBalkans.Data.Repository
             return _dbSet.ToList();
         }
 
-        public void Add(TEntity entity)
+        public async Task Add(TEntity entity)
         {
-            _dbSet.Add(entity);
-            _context.SaveChanges();
+            await _dbSet.AddAsync(entity);
+            await _context.SaveChangesAsync();
         }
 
         public void Update(TEntity entity)

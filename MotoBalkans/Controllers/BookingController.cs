@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MotoBalkans.Data;
+using MotoBalkans.Data.Contracts;
+using MotoBalkans.Services.Contracts;
 using MotoBalkans.Web.Data.Models;
 using MotoBalkans.Web.Models.ViewModels;
 using System.Security.Claims;
@@ -10,9 +12,15 @@ namespace MotoBalkans.Web.Controllers
     public class BookingController : Controller
     {
         private MotoBalkansDbContext _data;
-        public BookingController(MotoBalkansDbContext context)
+        private IBookingService _bookingService;
+        private IRentalRepository _rentalRepository;
+        public BookingController(MotoBalkansDbContext context,
+                                 IBookingService bookingService,
+                                 IRentalRepository rentalRepository)
         {
             _data = context;
+            _bookingService = bookingService;
+            _rentalRepository = rentalRepository;
         }
 
         [HttpPost]
@@ -31,8 +39,7 @@ namespace MotoBalkans.Web.Controllers
             rental.StartDate = availableMotorcycle.StartDateRequested;
             rental.EndDate = availableMotorcycle.EndDateRequested;
 
-            await _data.Rentals.AddAsync(rental);
-            await _data.SaveChangesAsync();
+            await _bookingService.CreateBooking(rental);
 
             return RedirectToAction("Index", "Search");
         }
@@ -42,13 +49,9 @@ namespace MotoBalkans.Web.Controllers
         {
             string userId = GetUserId();
 
-            
+            var myBookings = await _rentalRepository.GetRentalsForUserAsync(userId);
 
-            var model = await _data.Rentals
-                .AsNoTracking()
-                .Include(x => x.Customer)
-                .Include(x => x.Motorcycle)
-                .Where(sp => sp.CustomerId == userId)
+            var model = myBookings
                 .Select(x => new MyBookingsViewModel()
                 {
                     Customer = x.Customer,
@@ -56,8 +59,7 @@ namespace MotoBalkans.Web.Controllers
                     StartDate = x.StartDate,
                     EndDate = x.EndDate,
                     RentalId = x.Id
-                })
-                .ToListAsync();
+                });
 
             return View(model);
         }

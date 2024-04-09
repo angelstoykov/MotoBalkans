@@ -58,7 +58,7 @@ namespace MotoBalkans.Services
 
         public async Task CreateNewMotorcycle(Motorcycle motorcycle)
         {
-            _motorcycleRepository.Add(motorcycle);
+            await _motorcycleRepository.Add(motorcycle);
         }
 
         public async Task<IEnumerable<AvailableMotorcycleDTO>> GetAvailableMotorcyclesForPeriod(DateTime startDate, DateTime endDate)

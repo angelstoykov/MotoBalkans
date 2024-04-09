@@ -10,7 +10,7 @@ namespace MotoBalkans.Data.Contracts
     {
         Task<TEntity> GetById(int id);
         Task<IEnumerable<TEntity>> GetAll();
-        void Add(TEntity entity);
+        Task Add(TEntity entity);
         void Update(TEntity entity);
         void Delete(TEntity entity);
         void DeleteRange(IEnumerable<TEntity> entities);
