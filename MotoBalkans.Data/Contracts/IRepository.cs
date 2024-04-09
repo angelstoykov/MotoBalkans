@@ -13,5 +13,6 @@ namespace MotoBalkans.Data.Contracts
         void Add(TEntity entity);
         void Update(TEntity entity);
         void Delete(TEntity entity);
+        void DeleteRange(IEnumerable<TEntity> entities);
     }
 }

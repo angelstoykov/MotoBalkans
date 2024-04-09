@@ -11,17 +11,20 @@ namespace MotoBalkans.Services
         private readonly IRepository<Motorcycle> _motorcycleRepository;
         private readonly IRepository<Engine> _engineRepository;
         private readonly IRepository<Transmission> _transmissionRepository;
+        private readonly IRepository<Rental> _rentalRepository;
         private IAvailabilityChecker _checker;
 
         public MotorcycleService(IMotoBalkansDbContext context,
             IRepository<Motorcycle> motorcycleRepository,
             IRepository<Engine> engineRepository,
             IRepository<Transmission> transmissionRepository,
+            IRepository<Rental> rentalRepository,
             IAvailabilityChecker checker)
         {
             _motorcycleRepository = motorcycleRepository;
             _engineRepository = engineRepository;
             _transmissionRepository = transmissionRepository;
+            _rentalRepository = rentalRepository;
             _checker = checker;
         }
 
@@ -88,6 +91,23 @@ namespace MotoBalkans.Services
         public async Task<Motorcycle> GetMotorcycleById(int id)
         {
             return await GetMotorcycleDetailsById(id);
+        }
+
+        public async Task<IEnumerable<Rental>> GetAllRentals()
+        {
+            return await _rentalRepository.GetAll();
+        }
+
+        public async Task DeleteRentals(IEnumerable<Rental> rentalsToDelete)
+        {
+
+            _rentalRepository.DeleteRange(rentalsToDelete);
+        }
+
+        public async Task DeleteMotorcycle(Motorcycle motorcycle)
+        {
+
+            _motorcycleRepository.Delete(motorcycle);
         }
     }
 }

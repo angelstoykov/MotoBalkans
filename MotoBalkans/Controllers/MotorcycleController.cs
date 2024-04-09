@@ -6,6 +6,7 @@ using MotoBalkans.Services.Contracts;
 using MotoBalkans.Web.Data.Enums;
 using MotoBalkans.Web.Data.Models;
 using MotoBalkans.Web.Models.ViewModels;
+using System.Linq;
 
 namespace MotoBalkans.Web.Controllers
 {
@@ -145,24 +146,26 @@ namespace MotoBalkans.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            // TODO: Finish Delete
-            // check if it has Rentals etc. relations then delete
             var motorcycle = await _motorcycleService.GetMotorcycleById(id);
+
+            var rentals = await _motorcycleService.GetAllRentals();
+            var filteredRentals = rentals.Where(r => r.MotorcycleId == id);
+
 
             if (motorcycle == null)
             {
                 return BadRequest();
             }
 
-            //if (seminar.OrganizerId != GetUserId())
-            //{
-            //    return Unauthorized();
-            //}
+            // if motocycle have rentals, delete them first
+            if (filteredRentals.Count() > 0)
+            {
+                await _motorcycleService.DeleteRentals(filteredRentals);
+            }
 
-            //_data.Seminars.Remove(seminar);
-            //await _data.SaveChangesAsync();
+            await _motorcycleService.DeleteMotorcycle(motorcycle);
 
-            return RedirectToAction("All", "Seminar");
+            return RedirectToAction("All", "Motorcycle");
         }
     }
 }

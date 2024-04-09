@@ -13,5 +13,8 @@ namespace MotoBalkans.Services.Contracts
         Task<Motorcycle> GetMotorcycleDetailsById(int id);
         Task CreateNewMotorcycle(Motorcycle motorcycle);
         Task<IEnumerable<AvailableMotorcycleDTO>> GetAvailableMotorcyclesForPeriod(DateTime startDate, DateTime endDate);
+        Task<IEnumerable<Rental>> GetAllRentals();
+        Task DeleteRentals(IEnumerable<Rental> rentalsToDelete);
+        Task DeleteMotorcycle(Motorcycle motorcycle);
     }
 }

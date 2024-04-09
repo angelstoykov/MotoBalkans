@@ -47,5 +47,11 @@ namespace MotoBalkans.Data.Repository
             _dbSet.Remove(entity);
             _context.SaveChanges();
         }
+
+        public void DeleteRange(IEnumerable<TEntity> entities)
+        {
+            _dbSet.RemoveRange(entities);
+            _context.SaveChanges();
+        }
     }
 }
