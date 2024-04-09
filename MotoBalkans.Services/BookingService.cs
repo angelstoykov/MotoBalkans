@@ -21,5 +21,15 @@ namespace MotoBalkans.Services
         {
             await _rentalRepository.Add(rental);
         }
+
+        public async Task<Rental> GetBookingById(int id)
+        {
+            return await _rentalRepository.GetById(id);
+        }
+
+        public async Task DeleteConfirmed(Rental booking)
+        {
+            await _rentalRepository.Delete(booking);
+        }
     }
 }

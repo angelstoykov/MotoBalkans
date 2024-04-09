@@ -42,10 +42,10 @@ namespace MotoBalkans.Data.Repository
             _context.SaveChanges();
         }
 
-        public void Delete(TEntity entity)
+        public async Task Delete(TEntity entity)
         {
             _dbSet.Remove(entity);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
         public void DeleteRange(IEnumerable<TEntity> entities)

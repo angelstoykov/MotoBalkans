@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using MotoBalkans.Data;
 using MotoBalkans.Data.Contracts;
+using MotoBalkans.Services;
 using MotoBalkans.Services.Contracts;
 using MotoBalkans.Web.Data.Models;
 using MotoBalkans.Web.Models.ViewModels;
@@ -67,6 +68,38 @@ namespace MotoBalkans.Web.Controllers
         private string GetUserId()
         {
             return User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? string.Empty;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var booking = await _bookingService.GetBookingById(id);
+            if (booking == null)
+            {
+                return BadRequest();
+            }
+
+            var model = new DeleteMyBookingViewModel()
+            {
+                Id = booking.Id
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var booking = await _bookingService.GetBookingById(id);
+
+            if (booking == null)
+            {
+                return BadRequest();
+            }
+
+            await _bookingService.DeleteConfirmed(booking);
+
+            return RedirectToAction("MyBookings", "Booking");
         }
     }
 }
