@@ -45,7 +45,6 @@ namespace MotoBalkans.Web.Controllers
             var viewModel = new AddNewMotocycleFormViewModel();
 
             var engineTypes = await _motorcycleService.GetEngineTypes();
-
             viewModel.EngineTypes = engineTypes
                 .Select(c => new EngineViewModel()
                 {
@@ -71,7 +70,6 @@ namespace MotoBalkans.Web.Controllers
             if (!ModelState.IsValid)
             {
                 var engineTypes = await _motorcycleService.GetEngineTypes();
-
                 createMotorcycleModel.EngineTypes = engineTypes
                 .Select(c => new EngineViewModel()
                 {
@@ -166,6 +164,84 @@ namespace MotoBalkans.Web.Controllers
             await _motorcycleService.DeleteMotorcycle(motorcycle);
 
             return RedirectToAction("All", "Motorcycle");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var motorcycle = await _motorcycleService.GetMotorcycleById(id);
+
+            if (motorcycle == null)
+            {
+                return BadRequest();
+            }
+
+            var model = new EditMotorcycleViewModel()
+            {
+                Brand = motorcycle.Brand,
+                Model = motorcycle.Model,
+                EngineId = motorcycle.EngineId,
+                TransmissionId = motorcycle.TransmissionId
+            };
+
+            var engineTypes = await _motorcycleService.GetEngineTypes();
+            model.EngineTypes = engineTypes
+                .Select(c => new EngineViewModel()
+                {
+                    Id = c.Id,
+                    Type = c.EngineType
+                });
+
+            var transmissionTypes = await _motorcycleService.GetTransmissionTypes();
+            model.TransmissionTypes = transmissionTypes
+                .Select(c => new TransmissionViewModel()
+                {
+                    Id = c.Id,
+                    Type = c.TransmissionType
+                });
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditMotorcycleViewModel editModel, int id)
+        {
+            var motorcycle = await _motorcycleService.GetMotorcycleById(id);
+
+            if (motorcycle == null)
+            {
+                return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                var engineTypes = await _motorcycleService.GetEngineTypes();
+                editModel.EngineTypes = engineTypes
+                .Select(c => new EngineViewModel()
+                {
+                    Id = c.Id,
+                    Type = c.EngineType
+                });
+
+                var transmissionTypes = await _motorcycleService.GetTransmissionTypes();
+                editModel.TransmissionTypes = transmissionTypes
+                    .Select(c => new TransmissionViewModel()
+                    {
+                        Id = c.Id,
+                        Type = c.TransmissionType
+                    });
+
+                return View(editModel);
+            }
+
+            motorcycle.Brand = editModel.Brand;
+            motorcycle.Model = editModel.Model;
+            motorcycle.EngineId = editModel.EngineId;
+            motorcycle.TransmissionId = editModel.TransmissionId;
+
+            await _motorcycleService.EditMotorcycle(motorcycle);
+
+            return RedirectToAction(nameof(All));
         }
     }
 }

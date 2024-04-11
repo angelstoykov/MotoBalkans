@@ -109,5 +109,10 @@ namespace MotoBalkans.Services
 
             _motorcycleRepository.Delete(motorcycle);
         }
+
+        public async Task EditMotorcycle(Motorcycle motorcycle)
+        {
+            _motorcycleRepository.Update(motorcycle);
+        }
     }
 }

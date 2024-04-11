@@ -1,0 +1,55 @@
+﻿@model EditMotorcycleViewModel
+@{
+    ViewBag.Title = "Edit Motorcycle";
+}
+
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form asp-action="Edit" method="post">
+            <div class="mb-3">
+                <label asp-for="@Model.Brand" class="form-label-add-edit">Motorcycle brand</label>
+                <input asp-for="@Model.Brand" class="form-control" aria-required="true" />
+                <span asp-validation-for="@Model.Brand" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.Model" class="form-label-add-edit">Motocycle Model</label>
+                <input asp-for="@Model.Model" class="form-control" aria-required="true" />
+                <span asp-validation-for="@Model.Model" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.EngineId" class="form-label-add-edit">Select Engine Type</label>
+                <select asp-for="@Model.EngineId" class="form-control" aria-required="true">
+                    <option disabled selected value="">Edit Engine Type...</option>
+                    @foreach (var engine in Model.EngineTypes)
+                    {
+                        <option value="@engine.Id">@engine.Type</option>
+                    }
+                </select>
+                <span asp-validation-for="@Model.EngineId" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.TransmissionId" class="form-label-add-edit">Select Transmission Type</label>
+                <select asp-for="@Model.TransmissionId" class="form-control" aria-required="true">
+                    <option disabled selected value="">Edit Transmission Type...</option>
+                    @foreach (var transmission in Model.TransmissionTypes)
+                    {
+                        <option value="@transmission.Id">@transmission.Type</option>
+                    }
+                </select>
+                <span asp-validation-for="@Model.EngineId" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <input class="btn btn-warning mb-2 w-100 p-3 fw-bold" type="submit" value="Edit" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

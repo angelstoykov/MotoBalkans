@@ -16,5 +16,6 @@ namespace MotoBalkans.Services.Contracts
         Task<IEnumerable<Rental>> GetAllRentals();
         Task DeleteRentals(IEnumerable<Rental> rentalsToDelete);
         Task DeleteMotorcycle(Motorcycle motorcycle);
+        Task EditMotorcycle(Motorcycle motorcycle);
     }
 }
