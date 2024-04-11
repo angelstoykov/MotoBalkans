@@ -14,6 +14,11 @@ namespace MotoBalkans.Web.Models.ViewModels
         public string Model { get; set; }
 
         [Required]
+        [Range(0.01, 10000.00)]
+        [RegularExpression(@"^\d+(\.\d{1,2})?$", ErrorMessage = "Invalid price format")]
+        public decimal PricePerDay { get; set; }
+
+        [Required]
         public int EngineId { get; set; }
 
         public IEnumerable<EngineViewModel> EngineTypes { get; set; } = new List<EngineViewModel>();

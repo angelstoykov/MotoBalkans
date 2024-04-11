@@ -180,6 +180,7 @@ namespace MotoBalkans.Web.Controllers
             {
                 Brand = motorcycle.Brand,
                 Model = motorcycle.Model,
+                PricePerDay = motorcycle.PricePerDay,
                 EngineId = motorcycle.EngineId,
                 TransmissionId = motorcycle.TransmissionId
             };
@@ -236,6 +237,7 @@ namespace MotoBalkans.Web.Controllers
 
             motorcycle.Brand = editModel.Brand;
             motorcycle.Model = editModel.Model;
+            motorcycle.PricePerDay = editModel.PricePerDay;
             motorcycle.EngineId = editModel.EngineId;
             motorcycle.TransmissionId = editModel.TransmissionId;
 
