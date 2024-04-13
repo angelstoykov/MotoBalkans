@@ -12,7 +12,7 @@
     {
         <div class="card col-4" style="width: 20rem; ">
             <div class="card-body">
-                <h4 class="card-title mt-1">@e.Brand</h4>
+                <h4 class="card-title mt-1"><a asp-action="All" asp-route-sortOrder="@ViewData["NameSortParm"]">@e.Brand</a> </h4>
                 <h5 class="card-title mt-1">@e.Model</h5>
                 <h5 class="card-title mt-1">@e.PricePerDay EUR/day</h5>
             </div>

@@ -23,9 +23,28 @@ namespace MotoBalkans.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All(string sortOrder)
         {
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "brand_name_desc" : "";
+            ViewData["DateSortParm"] = sortOrder == "model_name_desc" ? "model_name_desc" : "model_name_asc";
+
             var allMotorcyclesFromDb = await _motorcycleService.GetAllMotorcycles();
+
+            switch (sortOrder)
+            {
+                case "brand_name_desc":
+                    allMotorcyclesFromDb = allMotorcyclesFromDb.OrderByDescending(s => s.Brand);
+                    break;
+                case "model_name_desc":
+                    allMotorcyclesFromDb = allMotorcyclesFromDb.OrderByDescending(s => s.Model);
+                    break;
+                case "model_name_asc":
+                    allMotorcyclesFromDb = allMotorcyclesFromDb.OrderBy(s => s.Model);
+                    break;
+                default:
+                    allMotorcyclesFromDb = allMotorcyclesFromDb.OrderBy(s => s.Brand);
+                    break;
+            }
 
             var model = allMotorcyclesFromDb
                 .Select(m => new AllMotorcyclesViewModel(
