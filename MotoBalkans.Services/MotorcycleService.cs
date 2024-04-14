@@ -28,6 +28,34 @@ namespace MotoBalkans.Services
             _checker = checker;
         }
 
+        public async Task<IEnumerable<Motorcycle>> GetPaginatedMotorcycleResult(int currentPage, string sortOrder, int pageSize = 10)
+        {
+            var allMotorcyclesFromDb = await GetAllMotorcycles();
+            switch (sortOrder)
+            {
+                case "brand_name_desc":
+                    allMotorcyclesFromDb = allMotorcyclesFromDb.OrderByDescending(s => s.Brand);
+                    break;
+                case "model_name_desc":
+                    allMotorcyclesFromDb = allMotorcyclesFromDb.OrderByDescending(s => s.Model);
+                    break;
+                case "model_name_asc":
+                    allMotorcyclesFromDb = allMotorcyclesFromDb.OrderBy(s => s.Model);
+                    break;
+                default:
+                    allMotorcyclesFromDb = allMotorcyclesFromDb.OrderBy(s => s.Brand);
+                    break;
+            }
+
+            return allMotorcyclesFromDb.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+        }
+
+        public async Task<int> GetCount()
+        {
+            var data = await GetAllMotorcycles();
+            return data.ToList().Count;
+        }
+
         public async Task<IEnumerable<Motorcycle>> GetAllMotorcycles()
         {
             return await _motorcycleRepository.GetAll();

@@ -17,5 +17,7 @@ namespace MotoBalkans.Services.Contracts
         Task DeleteRentals(IEnumerable<Rental> rentalsToDelete);
         Task DeleteMotorcycle(Motorcycle motorcycle);
         Task EditMotorcycle(Motorcycle motorcycle);
+        Task<IEnumerable<Motorcycle>> GetPaginatedMotorcycleResult(int currentPage, string sortOrder, int pageSize = 10);
+        Task<int> GetCount();
     }
 }

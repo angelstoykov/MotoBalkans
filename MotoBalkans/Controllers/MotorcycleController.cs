@@ -1,12 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using MotoBalkans.Data;
 using MotoBalkans.Services.Contracts;
-using MotoBalkans.Web.Data.Enums;
 using MotoBalkans.Web.Data.Models;
 using MotoBalkans.Web.Models.ViewModels;
-using System.Linq;
+using NuGet.Packaging;
 
 namespace MotoBalkans.Web.Controllers
 {
@@ -16,6 +14,11 @@ namespace MotoBalkans.Web.Controllers
         private MotoBalkansDbContext _data;
         private IMotorcycleService _motorcycleService;
 
+        public int CurrentPage { get; set; } = 1;
+        public int Count { get; set; }
+        public int PageSize { get; set; } = 5;
+        public int TotalPages => (int)Math.Ceiling(decimal.Divide(Count, PageSize));
+
         public MotorcycleController(MotoBalkansDbContext context, IMotorcycleService motorcycleService)
         {
             _data = context;
@@ -23,30 +26,16 @@ namespace MotoBalkans.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> All(string sortOrder)
+        public async Task<IActionResult> All(string sortOrder, int currentpage)
         {
+            CurrentPage = currentpage == 0 ? CurrentPage : currentpage;
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "brand_name_desc" : "";
-            ViewData["DateSortParm"] = sortOrder == "model_name_desc" ? "model_name_desc" : "model_name_asc";
+            ViewData["ModelSortParam"] = sortOrder == "model_name_desc" ? "model_name_asc" : "model_name_desc";
 
-            var allMotorcyclesFromDb = await _motorcycleService.GetAllMotorcycles();
+            var paginatedMotorcyclesFromDb = await _motorcycleService.GetPaginatedMotorcycleResult(CurrentPage, sortOrder, PageSize);
+            Count = await _motorcycleService.GetCount();
 
-            switch (sortOrder)
-            {
-                case "brand_name_desc":
-                    allMotorcyclesFromDb = allMotorcyclesFromDb.OrderByDescending(s => s.Brand);
-                    break;
-                case "model_name_desc":
-                    allMotorcyclesFromDb = allMotorcyclesFromDb.OrderByDescending(s => s.Model);
-                    break;
-                case "model_name_asc":
-                    allMotorcyclesFromDb = allMotorcyclesFromDb.OrderBy(s => s.Model);
-                    break;
-                default:
-                    allMotorcyclesFromDb = allMotorcyclesFromDb.OrderBy(s => s.Brand);
-                    break;
-            }
-
-            var model = allMotorcyclesFromDb
+            var model = paginatedMotorcyclesFromDb
                 .Select(m => new AllMotorcyclesViewModel(
                     m.Id,
                     m.Brand,
@@ -55,7 +44,15 @@ namespace MotoBalkans.Web.Controllers
                     ))
                 .ToList();
 
-            return View(model);
+            var viewModel = new AllMotorcyclesPaginatedViewModel()
+            {
+                CurrentPage = this.CurrentPage,
+                TotalPages = this.TotalPages
+            };
+
+            viewModel.Items.AddRange(model);
+
+            return View(viewModel);
         }
 
         [HttpGet]

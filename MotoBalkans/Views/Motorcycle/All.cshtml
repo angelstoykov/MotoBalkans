@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AllMotorcyclesViewModel>;
+﻿@model AllMotorcyclesPaginatedViewModel;
 @{
     ViewBag.Title = "All available motorcycles";
 }
@@ -8,12 +8,12 @@
 <hr />
 
 <div class="text-center row">
-    @foreach (var e in Model)
+    @foreach (var e in Model.Items)
     {
         <div class="card col-4" style="width: 20rem; ">
             <div class="card-body">
                 <h4 class="card-title mt-1"><a asp-action="All" asp-route-sortOrder="@ViewData["NameSortParm"]">@e.Brand</a> </h4>
-                <h5 class="card-title mt-1">@e.Model</h5>
+                <h5 class="card-title mt-1"><a asp-action="All" asp-route-sortOrder="@ViewData["ModelSortParam"]">@e.Model</a></h5>
                 <h5 class="card-title mt-1">@e.PricePerDay EUR/day</h5>
             </div>
 
@@ -32,6 +32,16 @@
             } *@
         </div>
     }
+</div>
+<div>
+    <ul class="pagination">
+        @for (var i = 1; i <= Model.TotalPages; i++)
+        {
+            <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                <a asp-page="/pagination" asp-route-currentpage="@i" class="page-link">@i</a>
+            </li>
+        }
+    </ul>
 </div>
 
 @section Scripts {
