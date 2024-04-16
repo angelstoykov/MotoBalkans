@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MotoBalkans.Services.Contracts;
 using MotoBalkans.Web.Data.Contracts;
 using MotoBalkans.Web.Models.ViewModels;
@@ -52,6 +53,32 @@ namespace MotoBalkans.Web.Controllers
             }
             
             return View("AvailableMotorcycles", availableMotorcyclesViewModel);
+        }
+
+        public async Task<IActionResult> SearchByString(string searchString)
+        {
+            ViewBag.TitleSuffix = searchString;
+
+            var motorcycles = from m in _data.Motorcycles
+                         select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                motorcycles = motorcycles.Where(s => s.Brand!.Contains(searchString));
+            }
+
+            var result = await motorcycles.ToListAsync();
+
+            var viewModel = new SearchByStringAllViewModel();
+            foreach (var item in result)
+            {
+
+                var motorcycle = new SearchByStringViewModel(item.Id, item.Brand, item.Model, item.PricePerDay);
+
+                viewModel.Items.Add(motorcycle);
+            }
+
+            return View(viewModel);
         }
     }
 }

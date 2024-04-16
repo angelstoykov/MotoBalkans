@@ -1,6 +1,6 @@
-﻿@model AllMotorcyclesPaginatedViewModel;
+﻿@model SearchByStringAllViewModel;
 @{
-    ViewBag.Title = "All available motorcycles";
+    ViewBag.Title = "All motorcycles filtered by " + ViewBag.TitleSuffix;
 }
 
 
@@ -28,27 +28,17 @@
             <a asp-controller="Motorcycle" asp-action="Delete" asp-route-id="@e.Id" class="btn btn-danger mb-2 w-100 p-3 fw-bold">Delete</a>
             <a asp-controller="Motorcycle" asp-action="Edit" asp-route-id="@e.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Edit</a>
             @* @if (User?.Identity?.Name == e.Organizer)
-            {
-                <a asp-controller="Seminar" asp-action="Edit" asp-route-id="@e.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Edit</a>
-            }
-            else
-            {
-                <form class="input-group-sm" asp-controller="Seminar" asp-action="Join" asp-route-id="@e.Id">
-                    <input type="submit" value="Subscribe" class="fs-6 btn btn-warning mb-2 w-100 p-3 fw-bold" />
-                </form>
-            } *@
+        {
+        <a asp-controller="Seminar" asp-action="Edit" asp-route-id="@e.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Edit</a>
+        }
+        else
+        {
+        <form class="input-group-sm" asp-controller="Seminar" asp-action="Join" asp-route-id="@e.Id">
+        <input type="submit" value="Subscribe" class="fs-6 btn btn-warning mb-2 w-100 p-3 fw-bold" />
+        </form>
+        } *@
         </div>
     }
-</div>
-<div>
-    <ul class="pagination">
-        @for (var i = 1; i <= Model.TotalPages; i++)
-        {
-            <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
-                <a asp-page="/pagination" asp-route-currentpage="@i" class="page-link">@i</a>
-            </li>
-        }
-    </ul>
 </div>
 
 @section Scripts {
