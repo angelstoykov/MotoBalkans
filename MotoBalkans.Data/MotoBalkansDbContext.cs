@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using MotoBalkans.Data.Models;
 using MotoBalkans.Web.Data.Contracts;
 using MotoBalkans.Web.Data.Models;
 
@@ -77,5 +78,7 @@ namespace MotoBalkans.Data
         public DbSet<Engine> Engines { get; set; }
 
         public DbSet<Transmission> Transmissions { get; set; }
+
+        public DbSet<Report> Reports { get; set; }
     }
 }
