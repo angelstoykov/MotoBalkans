@@ -84,6 +84,15 @@ namespace MotoBalkans.Data
                     PricePerDay = 200m
                 });
 
+            builder
+                .Entity<Report>()
+                .HasData(
+                new Report()
+                {
+                    Id = 1,
+                    Name = "Get all rentals"
+                });
+
             base.OnModelCreating(builder);
         }
 
