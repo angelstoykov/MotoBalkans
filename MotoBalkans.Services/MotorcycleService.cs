@@ -105,8 +105,8 @@ namespace MotoBalkans.Services
                 if (isMotocycleAvailable)
                 {
                     availableMotorcycles.Add(new AvailableMotorcycleDTO(motorcycle.Id,
-                                                                        motorcycle.Model,
                                                                         motorcycle.Brand,
+                                                                        motorcycle.Model,
                                                                         0,
                                                                         startDate,
                                                                         endDate));
