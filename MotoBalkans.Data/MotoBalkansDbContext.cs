@@ -26,7 +26,13 @@ namespace MotoBalkans.Data
                 {
                     Id = 1,
                     TransmissionType = Web.Data.Enums.TransmissionType.Manual
-                });
+                },
+                new Transmission()
+                {
+                    Id = 2,
+                    TransmissionType = Web.Data.Enums.TransmissionType.Automatic
+                }
+                );
 
             builder
                 .Entity<Engine>()
@@ -35,6 +41,16 @@ namespace MotoBalkans.Data
                 {
                     Id = 1,
                     EngineType = Web.Data.Enums.EngineType.Conbustion
+                },
+                new Engine()
+                {
+                    Id = 2,
+                    EngineType = Web.Data.Enums.EngineType.Electric
+                },
+                new Engine()
+                {
+                    Id = 3,
+                    EngineType = Web.Data.Enums.EngineType.Other
                 });
 
             builder
