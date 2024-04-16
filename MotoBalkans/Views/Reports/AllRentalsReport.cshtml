@@ -1,0 +1,35 @@
+﻿@model ReportGetAllRentals
+
+@{
+    ViewData["Title"] = "All Rentals Report";
+}
+
+<div class="container">
+    <h2>@ViewData["Title"]</h2>
+
+    <h3>Reservations</h3>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Motorcycle</th>
+                <th>Customer</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var rental in Model.Items)
+            {
+                <tr>
+                    <input type="hidden" asp-for="@rental.Id" />
+                    <td>@rental.Motorcycle.Brand - @rental.Motorcycle.Model</td>
+                    <td>@rental.Customer.NormalizedUserName</td>
+                    <td>@rental.StartDate.ToShortDateString()</td>
+                    <td>@rental.EndDate.ToShortDateString()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

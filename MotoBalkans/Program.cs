@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MotoBalkans.Data;
 using MotoBalkans.Data.Contracts;
+using MotoBalkans.Data.Models;
 using MotoBalkans.Data.Repository;
 using MotoBalkans.Services;
 using MotoBalkans.Services.Contracts;
@@ -32,9 +33,11 @@ builder.Services.AddScoped<IRepository<Motorcycle>, Repository<Motorcycle>>();
 builder.Services.AddScoped<IRepository<Engine>, Repository<Engine>>();
 builder.Services.AddScoped<IRepository<Transmission>, Repository<Transmission>>();
 builder.Services.AddScoped<IRepository<Rental>, Repository<Rental>>();
+builder.Services.AddScoped<IRepository<Report>, Repository<Report>>();
 builder.Services.AddScoped<IRentalRepository, RentalRepository>();
 builder.Services.AddScoped<IBookingService, BookingService>();
 builder.Services.AddScoped<IMotorcycleService, MotorcycleService>();
+builder.Services.AddScoped<IReportService, ReportService>();
 
 var app = builder.Build();
 

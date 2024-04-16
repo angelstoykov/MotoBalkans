@@ -1,1 +1,14 @@
-﻿<h3>hello from reports home page</h3>
+﻿@model AllReportsViewModel;
+@{
+    ViewBag.Title = "All Reports";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="text-center row">
+    @foreach (var report in Model.Items)
+    {
+        @await Html.PartialAsync("_AllReportsPartial", report)
+    }
+</div>
