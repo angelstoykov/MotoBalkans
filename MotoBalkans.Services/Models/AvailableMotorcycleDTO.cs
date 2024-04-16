@@ -13,7 +13,8 @@
             string model,
             decimal pricePerDay,
             DateTime startDateRequested,
-            DateTime endDateRequested)
+            DateTime endDateRequested,
+            decimal totalPrice)
         {
             Id = id;
             Brand = brand;
@@ -21,6 +22,7 @@
             PricePerDay = pricePerDay;
             StartDateRequested = startDateRequested;
             EndDateRequested = endDateRequested;
+            TotalPrice = totalPrice;
         }
 
         public int Id { get; set; }
@@ -34,5 +36,7 @@
         public DateTime StartDateRequested { get; set; }
 
         public DateTime EndDateRequested { get; set; }
+
+        public decimal TotalPrice { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using MotoBalkans.Data.Contracts;
 using MotoBalkans.Data.Models;
 using MotoBalkans.Services.Contracts;
+using MotoBalkans.Services.Models;
 using MotoBalkans.Services.Models.Reports;
 using MotoBalkans.Web.Data.Models;
 using System.Security.Claims;
@@ -48,19 +49,28 @@ namespace MotoBalkans.Services
 
             var reportGetAllRentals = new ReportGetAllRentals();
 
-            
-
             foreach (var item in allRentals)
             {
                 var motorcycle = await _motorcycleService.GetMotorcycleById(item.MotorcycleId);
 
-                item.Motorcycle = motorcycle;
+                var itemDto = new RentalDTO()
+                {
+                    Id = item.Id,
+                    CustomerId = item.CustomerId,
+                    MotorcycleId = item.MotorcycleId,
+                    StartDate = item.StartDate,
+                    EndDate = item.EndDate
+                };
+
+                itemDto.Motorcycle = motorcycle;
 
                 var user = await _userManager.FindByIdAsync(item.CustomerId);
 
-                item.Customer = user;
+                itemDto.Customer = user;
                 
-                reportGetAllRentals.Items.Add(item);
+                itemDto.TotalPrice = Math.Round(((int)(item.EndDate - item.StartDate).TotalDays * motorcycle.PricePerDay), 2);
+
+                reportGetAllRentals.Items.Add(itemDto);
             }
 
             return reportGetAllRentals;

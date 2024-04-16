@@ -12,11 +12,11 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Motorcycle</th>
                 <th>Customer</th>
                 <th>Start Date</th>
                 <th>End Date</th>
+                <th>Total Price</th>
             </tr>
         </thead>
         <tbody>
@@ -28,6 +28,7 @@
                     <td>@rental.Customer.NormalizedUserName</td>
                     <td>@rental.StartDate.ToShortDateString()</td>
                     <td>@rental.EndDate.ToShortDateString()</td>
+                    <td>@rental.TotalPrice</td>
                 </tr>
             }
         </tbody>

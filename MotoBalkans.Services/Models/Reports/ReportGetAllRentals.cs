@@ -9,11 +9,11 @@ namespace MotoBalkans.Services.Models.Reports
 {
     public class ReportGetAllRentals
     {
-        public List<Rental> Items { get; set; }
+        public List<RentalDTO> Items { get; set; }
 
         public ReportGetAllRentals()
         {
-            Items = new List<Rental>();
+            Items = new List<RentalDTO>();
         }
 
         public int ReportId { get; set; }

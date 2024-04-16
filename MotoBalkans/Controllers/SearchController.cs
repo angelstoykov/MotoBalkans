@@ -46,7 +46,8 @@ namespace MotoBalkans.Web.Controllers
                     Model = item.Model,
                     StartDateRequested = item.StartDateRequested,
                     EndDateRequested = item.EndDateRequested,
-                    PricePerDay = item.PricePerDay
+                    PricePerDay = item.PricePerDay,
+                    TotalPrice = item.TotalPrice
                 };
 
                 availableMotorcyclesViewModel.Add(availableMotorcycleViewModel);

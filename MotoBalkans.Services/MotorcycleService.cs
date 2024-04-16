@@ -104,12 +104,14 @@ namespace MotoBalkans.Services
 
                 if (isMotocycleAvailable)
                 {
+                    var priceForThePeriod = Math.Round(((int)(endDate - startDate).TotalDays * motorcycle.PricePerDay), 2);
                     availableMotorcycles.Add(new AvailableMotorcycleDTO(motorcycle.Id,
                                                                         motorcycle.Brand,
                                                                         motorcycle.Model,
                                                                         0,
                                                                         startDate,
-                                                                        endDate));
+                                                                        endDate,
+                                                                        priceForThePeriod));
                 }
             }
 
