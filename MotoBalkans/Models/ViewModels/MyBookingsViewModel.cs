@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using MotoBalkans.Data.Models;
 using MotoBalkans.Web.Data.Models;
 
 namespace MotoBalkans.Web.Models.ViewModels
@@ -9,7 +10,7 @@ namespace MotoBalkans.Web.Models.ViewModels
 
         public Motorcycle Motorcycle { get; set; }
 
-        public IdentityUser Customer { get; set; }
+        public ApplicationUser Customer { get; set; }
 
         public DateTime StartDate { get; set; }
         

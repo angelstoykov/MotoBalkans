@@ -6,7 +6,7 @@ using MotoBalkans.Web.Data.Models;
 
 namespace MotoBalkans.Data
 {
-    public class MotoBalkansDbContext : IdentityDbContext, IMotoBalkansDbContext
+    public class MotoBalkansDbContext : IdentityDbContext<ApplicationUser>, IMotoBalkansDbContext
     {
         public MotoBalkansDbContext(DbContextOptions<MotoBalkansDbContext> options)
             : base(options)

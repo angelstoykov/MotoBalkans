@@ -4,6 +4,7 @@ using MotoBalkans.Data;
 using MotoBalkans.Data.Contracts;
 using MotoBalkans.Data.Models;
 using MotoBalkans.Data.Repository;
+using MotoBalkans.Data.SeedDB;
 using MotoBalkans.Services;
 using MotoBalkans.Services.Contracts;
 using MotoBalkans.Web.Data.Contracts;
@@ -17,14 +18,16 @@ builder.Services.AddDbContext<MotoBalkansDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
 {
     options.SignIn.RequireConfirmedAccount = false;
     options.Password.RequireDigit = false;
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequireUppercase = false;
 })
-    .AddEntityFrameworkStores<MotoBalkansDbContext>();
+    .AddEntityFrameworkStores<MotoBalkansDbContext>()
+    .AddDefaultTokenProviders();
+
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IMotoBalkansDbContext, MotoBalkansDbContext>();
@@ -40,6 +43,20 @@ builder.Services.AddScoped<IMotorcycleService, MotorcycleService>();
 builder.Services.AddScoped<IReportService, ReportService>();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var serviceProvider = scope.ServiceProvider;
+    var dbContext = serviceProvider.GetRequiredService<MotoBalkansDbContext>();
+    var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+    var roleManager = serviceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
+
+    // Perform database migrations
+    //dbContext.Database.Migrate();
+
+    // Seed default data
+    SeedData.Initialize(dbContext, userManager, roleManager).Wait();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

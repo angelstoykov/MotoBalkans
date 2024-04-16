@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using MotoBalkans.Data.Models;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -19,7 +20,7 @@ namespace MotoBalkans.Web.Data.Models
         public string CustomerId { get; set; } = string.Empty;
 
         [ForeignKey(nameof(CustomerId))]
-        public IdentityUser Customer { get; set; } = null!;
+        public ApplicationUser Customer { get; set; } = null!;
 
         [Required]
         public DateTime StartDate { get; set; }

@@ -14,19 +14,15 @@ namespace MotoBalkans.Services
         private readonly IRepository<Report> _reportsRepository;
         private readonly IRepository<Rental> _rentalRepository;
         private readonly IMotorcycleService _motorcycleService;
-        private readonly UserManager<IdentityUser> _userManager;
-
 
         public ReportService(
             IRepository<Report> reportRepository,
             IRepository<Rental> rentalRepository,
-            IMotorcycleService motorcycleService,
-            UserManager<IdentityUser> userManager)
+            IMotorcycleService motorcycleService)
         {
             _reportsRepository = reportRepository;
             _rentalRepository = rentalRepository;
             _motorcycleService = motorcycleService;
-            _userManager = userManager;
         }
 
         public async Task<ReportGetAllRentals> CreateReport(int id)
@@ -64,9 +60,9 @@ namespace MotoBalkans.Services
 
                 itemDto.Motorcycle = motorcycle;
 
-                var user = await _userManager.FindByIdAsync(item.CustomerId);
+                //var user = await _userManager.FindByIdAsync(item.CustomerId);
 
-                itemDto.Customer = user;
+                //itemDto.Customer = user;
                 
                 itemDto.TotalPrice = Math.Round(((int)(item.EndDate - item.StartDate).TotalDays * motorcycle.PricePerDay), 2);
 
