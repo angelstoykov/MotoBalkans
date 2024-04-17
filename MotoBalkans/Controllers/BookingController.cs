@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MotoBalkans.Data;
 using MotoBalkans.Data.Contracts;
@@ -10,6 +11,7 @@ using System.Security.Claims;
 
 namespace MotoBalkans.Web.Controllers
 {
+    [Authorize]
     public class BookingController : Controller
     {
         private MotoBalkansDbContext _data;
