@@ -22,7 +22,7 @@
 
         public string Model { get; set; }
 
-        public decimal PricePerDay { get; set; } = 0m;
+        public decimal PricePerDay { get; set; }
 
         public string PictureUrl { get; set; }
     }
