@@ -10,8 +10,6 @@
         <li>Brand new adventures!</li>
         <li>Brand new skills!</li>
     </ul>
-    @if (User?.Identity?.Name != null)
-    {
-        <a asp-controller="Search" asp-action="Index" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Go!!!</a>
-    }
+
+    <a asp-controller="Search" asp-action="Index" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Search NOW!!!</a>
 </div>

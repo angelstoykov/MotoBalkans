@@ -21,8 +21,12 @@
     <label asp-for="EndDateRequested"></label>
     <input class="form-control" type="date" asp-for="EndDateRequested" />
 
-    <div class="mb-3">
-        <input class="btn btn-warning mb-2 w-100 p-3 fw-bold" type="submit" value="Book now" />
-    </div>
+    @if (User?.Identity?.Name != null && (User.IsInRole("User") || User.IsInRole("Admin")))
+    {
+        <div class="mb-3">
+            <input class="btn btn-warning mb-2 w-100 p-3 fw-bold" type="submit" value="Book now" />
+        </div>
+    }
+
     <a asp-controller="Motorcycle" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Details</a>
 </form>

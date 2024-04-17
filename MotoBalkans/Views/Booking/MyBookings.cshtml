@@ -6,17 +6,27 @@
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
-<div class="text-center row">
-    @foreach (var item in Model)
-    {
-        <div class="card col-4" style="width: 20rem;">
-            <div class="card-body">
-                @await Html.PartialAsync("_MyBookingsFormPartial", item)
+@if (Model.Any())
+{
+    <div class="text-center row">
+        <p>You have @Model.Count() bookings.</p>
+        @foreach (var item in Model)
+        {
+            <div class="card col-4" style="width: 20rem;">
+                <div class="card-body">
+                    @await Html.PartialAsync("_MyBookingsFormPartial", item)
+                </div>
             </div>
-        </div>
 
-    }
-</div>
+        }
+    </div>
+}
+else
+{
+    <div class="text-center row">
+        <p>You don't have any bookings yet.</p>
+    </div>
+}
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
