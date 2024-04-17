@@ -13,7 +13,7 @@ namespace MotoBalkans.Data.SeedDB
     {
         public static async Task Initialize(MotoBalkansDbContext dbContext, UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager)
         {
-            await dbContext.Database.MigrateAsync();
+            //await dbContext.Database.MigrateAsync();
 
             await SeedRoles(roleManager);
 
@@ -29,7 +29,11 @@ namespace MotoBalkans.Data.SeedDB
             {
                 if (!await roleManager.RoleExistsAsync(roleName))
                 {
-                    await roleManager.CreateAsync(new ApplicationRole(roleName));
+                    var role = new ApplicationRole(roleName);
+                    var roleGuid = Guid.NewGuid();
+                    role.Id = roleGuid.ToString();
+
+                    var result = await roleManager.CreateAsync(role);
                 }
             }
         }

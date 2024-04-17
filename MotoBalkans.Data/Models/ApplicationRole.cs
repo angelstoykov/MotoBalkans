@@ -9,6 +9,10 @@ namespace MotoBalkans.Data.Models
 {
     public class ApplicationRole : IdentityRole<string>
     {
+        public ApplicationRole() : base()
+        {
+            
+        }
         public ApplicationRole(string role) : base(role)
         {
            

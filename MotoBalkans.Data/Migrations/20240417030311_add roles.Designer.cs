@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MotoBalkans.Data;
 
@@ -11,9 +12,10 @@ using MotoBalkans.Data;
 namespace MotoBalkans.Data.Migrations
 {
     [DbContext(typeof(MotoBalkansDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240417030311_add roles")]
+    partial class addroles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -242,7 +244,7 @@ namespace MotoBalkans.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Reports", (string)null);
+                    b.ToTable("Reports");
 
                     b.HasData(
                         new
@@ -271,7 +273,7 @@ namespace MotoBalkans.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Engines", (string)null);
+                    b.ToTable("Engines");
 
                     b.HasData(
                         new
@@ -329,7 +331,7 @@ namespace MotoBalkans.Data.Migrations
 
                     b.HasIndex("TransmissionId");
 
-                    b.ToTable("Motorcycles", (string)null);
+                    b.ToTable("Motorcycles");
 
                     b.HasData(
                         new
@@ -388,7 +390,7 @@ namespace MotoBalkans.Data.Migrations
 
                     b.HasIndex("MotorcycleId");
 
-                    b.ToTable("Rentals", (string)null);
+                    b.ToTable("Rentals");
                 });
 
             modelBuilder.Entity("MotoBalkans.Web.Data.Models.Transmission", b =>
@@ -404,7 +406,7 @@ namespace MotoBalkans.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Transmissions", (string)null);
+                    b.ToTable("Transmissions");
 
                     b.HasData(
                         new

@@ -6,7 +6,7 @@ using MotoBalkans.Web.Data.Models;
 
 namespace MotoBalkans.Data
 {
-    public class MotoBalkansDbContext : IdentityDbContext<ApplicationUser>, IMotoBalkansDbContext
+    public class MotoBalkansDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>, IMotoBalkansDbContext
     {
         public MotoBalkansDbContext(DbContextOptions<MotoBalkansDbContext> options)
             : base(options)
@@ -105,5 +105,7 @@ namespace MotoBalkans.Data
         public DbSet<Transmission> Transmissions { get; set; }
 
         public DbSet<Report> Reports { get; set; }
+
+        public DbSet<ApplicationRole> Roles { get; set; }
     }
 }

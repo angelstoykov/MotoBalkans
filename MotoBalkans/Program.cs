@@ -14,8 +14,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
 builder.Services.AddDbContext<MotoBalkansDbContext>(options =>
     options.UseSqlServer(connectionString));
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
@@ -42,6 +44,8 @@ builder.Services.AddScoped<IBookingService, BookingService>();
 builder.Services.AddScoped<IMotorcycleService, MotorcycleService>();
 builder.Services.AddScoped<IReportService, ReportService>();
 
+builder.Services.AddRazorPages();
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
@@ -52,7 +56,7 @@ using (var scope = app.Services.CreateScope())
     var roleManager = serviceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
 
     // Perform database migrations
-    //dbContext.Database.Migrate();
+   // dbContext.Database.Migrate();
 
     // Seed default data
     SeedData.Initialize(dbContext, userManager, roleManager).Wait();
