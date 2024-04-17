@@ -16,3 +16,8 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+img {
+    height: 185px;
+    width: 275px;
+}

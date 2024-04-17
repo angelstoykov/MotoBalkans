@@ -34,5 +34,8 @@ namespace MotoBalkans.Web.Data.Models
         [Required]
         [Precision(18,2)]
         public decimal PricePerDay { get; set; }
+
+        [Required]
+        public string PictureUrl { get; set; }
     }
 }

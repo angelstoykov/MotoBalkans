@@ -42,7 +42,8 @@ namespace MotoBalkans.Web.Controllers
                     m.Id,
                     m.Brand,
                     m.Model,
-                    m.PricePerDay
+                    m.PricePerDay,
+                    m.PictureUrl
                     ))
                 .ToList();
 

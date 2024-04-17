@@ -6,12 +6,14 @@
             int id,
             string brand,
             string model,
-            decimal pricePerDay)
+            decimal pricePerDay,
+            string pictureUrl)
         {
             Id = id;
             Brand = brand;
             Model = model;
             PricePerDay = pricePerDay;
+            PictureUrl = pictureUrl;
         }
 
         public int Id { get; set; }
@@ -21,5 +23,7 @@
         public string Model { get; set; }
 
         public decimal PricePerDay { get; set; } = 0m;
+
+        public string PictureUrl { get; set; }
     }
 }

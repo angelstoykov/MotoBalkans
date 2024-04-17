@@ -2,7 +2,7 @@
 {
     public class SearchByStringViewModel : AllMotorcyclesViewModel
     {
-        public SearchByStringViewModel(int id, string brand, string model, decimal pricePerDay)
-            : base(id,brand, model, pricePerDay) { }
+        public SearchByStringViewModel(int id, string brand, string model, decimal pricePerDay, string pictureUrl)
+            : base(id,brand, model, pricePerDay, pictureUrl) { }
     }
 }

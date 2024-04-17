@@ -47,7 +47,6 @@ namespace MotoBalkans.Web.Tests
             mockUser.Setup(user => user.IsInAdminRole()).Returns(false);
 
             var controller = new ReportsController(mockReportService.Object);
-            controller.SetIsAdministrator(false);
 
             // Act
             var result = await controller.All();

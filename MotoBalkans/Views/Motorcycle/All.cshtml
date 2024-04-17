@@ -19,6 +19,7 @@
     {
         <div class="card col-4" style="width: 20rem; ">
             <div class="card-body">
+                <img src="@e.PictureUrl" />
                 <h4 class="card-title mt-1"><a asp-action="All" asp-route-sortOrder="@ViewData["NameSortParm"]">@e.Brand</a> </h4>
                 <h5 class="card-title mt-1"><a asp-action="All" asp-route-sortOrder="@ViewData["ModelSortParam"]">@e.Model</a></h5>
                 <h5 class="card-title mt-1">@e.PricePerDay EUR/day</h5>

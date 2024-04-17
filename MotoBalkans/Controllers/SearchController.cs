@@ -75,7 +75,7 @@ namespace MotoBalkans.Web.Controllers
             foreach (var item in result)
             {
 
-                var motorcycle = new SearchByStringViewModel(item.Id, item.Brand, item.Model, item.PricePerDay);
+                var motorcycle = new SearchByStringViewModel(item.Id, item.Brand, item.Model, item.PricePerDay, item.PictureUrl);
 
                 viewModel.Items.Add(motorcycle);
             }

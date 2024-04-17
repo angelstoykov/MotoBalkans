@@ -63,7 +63,8 @@ namespace MotoBalkans.Data
                     Model = "TransAlp",
                     EngineId = 1,
                     TransmissionId = 1,
-                    PricePerDay = 100m
+                    PricePerDay = 100m,
+                    PictureUrl = "https://dizzyriders.bg/uploads/avtomobili/11_2022/421227_23YM_XL750_Transalp.jpg"
                 },
                 new Motorcycle()
                 {
@@ -72,7 +73,8 @@ namespace MotoBalkans.Data
                     Model = "F800GS Adventure",
                     EngineId = 1,
                     TransmissionId = 1,
-                    PricePerDay = 150m
+                    PricePerDay = 150m,
+                    PictureUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjudx8BnnMOEP6Gb2zki94D0gBoFxuwbsWc_VKS0J74A&s"
                 },
                 new Motorcycle()
                 {
@@ -81,7 +83,8 @@ namespace MotoBalkans.Data
                     Model = "Tenere 700",
                     EngineId = 1,
                     TransmissionId = 1,
-                    PricePerDay = 200m
+                    PricePerDay = 200m,
+                    PictureUrl = "https://advanywhere.com/wp-content/uploads/2022/12/AdvAnywhere-Tenere-review-1920x1280.jpg"
                 });
 
             builder
