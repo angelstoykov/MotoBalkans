@@ -135,7 +135,8 @@ namespace MotoBalkans.Web.Controllers
                 Model = createMotorcycleModel.Model,
                 EngineId = createMotorcycleModel.EngineId,
                 TransmissionId = createMotorcycleModel.TransmissionId,
-                PictureUrl = createMotorcycleModel.PictureUrl
+                PictureUrl = createMotorcycleModel.PictureUrl,
+                PricePerDay = createMotorcycleModel.PricePerDay
             };
 
             await _motorcycleService.CreateNewMotorcycle(motorcycle);
