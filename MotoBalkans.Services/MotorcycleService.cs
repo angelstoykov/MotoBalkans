@@ -94,7 +94,6 @@ namespace MotoBalkans.Services
 
         public async Task<IEnumerable<AvailableMotorcycleDTO>> GetAvailableMotorcyclesForPeriod(DateTime startDate, DateTime endDate)
         {
-            // TODO: This method is not finished yet.
             var allMotorcycles = await _motorcycleRepository.GetAll();
 
             var availableMotorcycles = new List<AvailableMotorcycleDTO>();
@@ -114,7 +113,8 @@ namespace MotoBalkans.Services
                                                                         0,
                                                                         startDate,
                                                                         endDate,
-                                                                        priceForThePeriod));
+                                                                        priceForThePeriod,
+                                                                        motorcycle.PictureUrl));
                 }
             }
 

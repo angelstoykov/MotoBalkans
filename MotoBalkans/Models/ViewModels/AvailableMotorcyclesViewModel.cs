@@ -14,7 +14,8 @@
             decimal pricePerDay,
             DateTime startDateRequested,
             DateTime endDateRequested,
-            decimal totalPrice)
+            decimal totalPrice,
+            string pictureUrl)
         {
             Id = id;
             Brand = brand;
@@ -23,6 +24,7 @@
             StartDateRequested = startDateRequested;
             EndDateRequested = endDateRequested;
             TotalPrice = totalPrice;
+            PictureUrl = pictureUrl;
         }
 
         public int Id { get; set; }
@@ -38,5 +40,7 @@
         public DateTime EndDateRequested { get; set; }
 
         public decimal TotalPrice { get; set; }
+
+        public string PictureUrl { get; set; }
     }
 }

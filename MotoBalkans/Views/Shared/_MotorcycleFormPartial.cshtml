@@ -3,6 +3,8 @@
 <form asp-controller="Booking" asp-action="Book" method="post">
     <input type="hidden" asp-for="Id" />
 
+    <img src="@Model.PictureUrl" />
+
     <label asp-for="Brand" class="form-label-add-edit">Brand</label>
     <input asp-for="Brand" class="form-control" aria-required="true" />
 
@@ -33,6 +35,4 @@
             <a class="btn btn-success mb-2 w-100 p-3 fw-bold" asp-area="Identity" asp-page="/Account/Register">Register now</a>
         </div>
     }
-
-    <a asp-controller="Motorcycle" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-info mb-2 w-100 p-3 fw-bold">Details</a>
 </form>

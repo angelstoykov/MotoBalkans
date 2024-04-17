@@ -4,7 +4,7 @@
 }
 
 <h3>Book now</h3>
-<form asp-action="Search" method="post">
+<form asp-action="Search" method="post" class="card col-4" style="width: 20rem; ">
     <label asp-for="@Model.StartDate"></label>
     <input class="form-control" type="date" asp-for="@Model.StartDate" />
     <span asp-validation-for="@Model.StartDate" class="text-danger"></span>
