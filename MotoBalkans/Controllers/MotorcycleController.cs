@@ -21,6 +21,16 @@ namespace MotoBalkans.Web.Controllers
         public int PageSize { get; set; } = 5;
         public int TotalPages => (int)Math.Ceiling(decimal.Divide(Count, PageSize));
 
+        public MotoBalkansDbContext GetContext()
+        {
+            return _data;
+        }
+
+        public IMotorcycleService GetMotorcycleService()
+        {
+            return _motorcycleService;
+        }
+
         public MotorcycleController(MotoBalkansDbContext context, IMotorcycleService motorcycleService)
         {
             _data = context;
