@@ -11,6 +11,9 @@ namespace MotoBalkans.Data.SeedDB
 {
     public class SeedData
     {
+        public static ApplicationUser AdminUser { get; set; }
+        public static ApplicationUser RegularUser { get; set; }
+
         public static async Task Initialize(MotoBalkansDbContext dbContext, UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager)
         {
             //await dbContext.Database.MigrateAsync();
@@ -33,7 +36,7 @@ namespace MotoBalkans.Data.SeedDB
                     var roleGuid = Guid.NewGuid();
                     role.Id = roleGuid.ToString();
 
-                    var result = await roleManager.CreateAsync(role);
+                    await roleManager.CreateAsync(role);
                 }
             }
         }
@@ -41,24 +44,31 @@ namespace MotoBalkans.Data.SeedDB
         private static async Task SeedUsers(UserManager<ApplicationUser> userManager)
         {
             // Check if admin user exists, create it if it doesn't
-            var adminUser = await userManager.FindByEmailAsync("admin@acho.com");
+            AdminUser = await userManager.FindByEmailAsync("admin@acho.com");
 
-            if (adminUser == null)
+            var hasher = new PasswordHasher<ApplicationUser>();
+
+            if (AdminUser == null)
             {
-                adminUser = new ApplicationUser
+
+                AdminUser = new ApplicationUser
                 {
-                    UserName = "admin",
+                    Id = "fa46aee7-58c1-41bb-9dd2-d50ac3dd094b",
+                    UserName = "admin@acho.com",
+                    NormalizedUserName = "admin@acho.com",
                     Email = "admin@acho.com",
+                    NormalizedEmail = "admin@acho.com",
                     FirstName = "Angel",
                     LastName = "Stoykov"
                 };
 
-                var result = await userManager.CreateAsync(adminUser, "test123456"); // Set the initial password
+                AdminUser.PasswordHash = hasher.HashPassword(AdminUser, "test123456");
+                var result = await userManager.CreateAsync(AdminUser);
 
                 if (result.Succeeded)
                 {
                     // Assign the admin role to the admin user
-                    await userManager.AddToRoleAsync(adminUser, "Admin");
+                    await userManager.AddToRoleAsync(AdminUser, "Admin");
                 }
                 else
                 {
@@ -66,22 +76,27 @@ namespace MotoBalkans.Data.SeedDB
                     throw new Exception("Failed to create admin user.");
                 }
             }
+
             var regularUser = await userManager.FindByEmailAsync("user@acho.com");
             if (regularUser == null)
             {
-                regularUser = new ApplicationUser
+                RegularUser = new ApplicationUser
                 {
-                    UserName = "user",
+                    Id = "849024e5-a5e7-4db3-90c8-d3448dd22010",
+                    UserName = "user@acho.com",
+                    NormalizedUserName = "user@acho.com",
                     Email = "user@acho.com",
-                    FirstName = "Angel - user",
-                    LastName = "Stoykov - user"
+                    NormalizedEmail = "user@acho.com",
+                    FirstName = "Acho",
+                    LastName = "RU Lastname"
                 };
 
-                var result = await userManager.CreateAsync(regularUser, "test123456"); // Set the initial password
+                RegularUser.PasswordHash = hasher.HashPassword(RegularUser, "test123456");
+                var result = await userManager.CreateAsync(RegularUser); // Set the initial password
 
                 if (result.Succeeded)
                 {
-                    await userManager.AddToRoleAsync(regularUser, "User");
+                    await userManager.AddToRoleAsync(RegularUser, "User");
                 }
                 else
                 {
