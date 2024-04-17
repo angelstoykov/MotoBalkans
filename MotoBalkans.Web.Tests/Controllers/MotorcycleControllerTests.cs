@@ -97,5 +97,30 @@ namespace MotoBalkans.Web.Tests.Controllers
             Assert.Equal(2, viewModel.EngineTypes.Count());
             Assert.Equal(2, viewModel.TransmissionTypes.Count());
         }
+
+
+
+        [Fact]
+        public async Task Add_ReturnsRedirectToActionResult_WhenServiceReturnsNull()
+        {
+            // Arrange
+            var mockMotorcycleService = new Mock<IMotorcycleService>();
+            var controller = new MotorcycleController(_dbContext, mockMotorcycleService.Object);
+
+            List<Engine> engineTypes = null;
+
+            List<Transmission> transmissionTypes= null;
+            
+            mockMotorcycleService.Setup(s => s.GetEngineTypes()).ReturnsAsync(engineTypes);
+            mockMotorcycleService.Setup(s => s.GetTransmissionTypes()).ReturnsAsync(transmissionTypes);
+
+            // Act
+            var result = await controller.Add();
+
+            // Assert
+            var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
+            Assert.Equal("NotFound", redirectToActionResult.ActionName);
+            Assert.Equal("Error", redirectToActionResult.ControllerName);
+        }
     }
 }
