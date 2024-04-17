@@ -18,20 +18,29 @@ namespace MotoBalkans.Web.Controllers
         {
             _reportService = reportService;
 
-            if (applicationUser != null) { }
+            if (applicationUser != null)
             {
                 userMocked = applicationUser;
             }
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> All()
         {
-            //if (userMocked != null ? userMocked.IsInAdminRole() : !User.IsInAdminRole())
-            //{
-            //    return RedirectToAction("NotAuthorized", "Error");
-            //}
+            var isAuthorized = false;
+            if (userMocked != null)
+            {
+                isAuthorized = userMocked.IsInAdminRole();
+            }
+            else
+            {
+                isAuthorized = User.IsInAdminRole();
+            }
+
+            if (!isAuthorized)
+            {
+                return RedirectToAction("NotAuthorized", "Error");
+            }
 
             var reportsList = await _reportService.GetAll();
             if (reportsList == null || reportsList.Count() == 0)
