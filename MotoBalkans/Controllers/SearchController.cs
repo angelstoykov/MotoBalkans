@@ -35,6 +35,7 @@ namespace MotoBalkans.Web.Controllers
             }
 
             var availableMotorcycles = _motorcycleService.GetAvailableMotorcyclesForPeriod(model.StartDate, model.EndDate);
+
             var availableMotorcyclesViewModel = new List<AvailableMotorcyclesViewModel>();
 
             foreach(var item in availableMotorcycles.Result)

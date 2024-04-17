@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using MotoBalkans.Data;
 using MotoBalkans.Services.Contracts;
+using MotoBalkans.Web.Data.Enums;
 using MotoBalkans.Web.Data.Models;
+using MotoBalkans.Web.Extentions;
 using MotoBalkans.Web.Models.ViewModels;
 using NuGet.Packaging;
 
@@ -61,6 +63,13 @@ namespace MotoBalkans.Web.Controllers
             var viewModel = new AddNewMotocycleFormViewModel();
 
             var engineTypes = await _motorcycleService.GetEngineTypes();
+            var transmissionTypes = await _motorcycleService.GetTransmissionTypes();
+
+            if (engineTypes == null || transmissionTypes == null)
+            {
+                return RedirectToAction("NotFound", "Error");
+            }
+
             viewModel.EngineTypes = engineTypes
                 .Select(c => new EngineViewModel()
                 {
@@ -68,7 +77,6 @@ namespace MotoBalkans.Web.Controllers
                     Type = c.EngineType
                 });
 
-            var transmissionTypes = await _motorcycleService.GetTransmissionTypes();
             viewModel.TransmissionTypes = transmissionTypes
                 .Select(c => new TransmissionViewModel()
                 {
@@ -86,6 +94,13 @@ namespace MotoBalkans.Web.Controllers
             if (!ModelState.IsValid)
             {
                 var engineTypes = await _motorcycleService.GetEngineTypes();
+                var transmissionTypes = await _motorcycleService.GetTransmissionTypes();
+
+                if (engineTypes == null || transmissionTypes == null)
+                {
+                    return RedirectToAction("NotFound", "Error");
+                }
+
                 createMotorcycleModel.EngineTypes = engineTypes
                 .Select(c => new EngineViewModel()
                 {
@@ -93,7 +108,6 @@ namespace MotoBalkans.Web.Controllers
                     Type = c.EngineType
                 });
 
-                var transmissionTypes = await _motorcycleService.GetTransmissionTypes();
                 createMotorcycleModel.TransmissionTypes = transmissionTypes
                     .Select(c => new TransmissionViewModel()
                     {
@@ -113,14 +127,26 @@ namespace MotoBalkans.Web.Controllers
             };
 
             await _motorcycleService.CreateNewMotorcycle(motorcycle);
-            
+
             return RedirectToAction("All", "Motorcycle");
         }
 
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
+            if (id.GetType() != typeof(int)
+                && id <= 0)
+            {
+                return RedirectToAction("BadRequest", "Error");
+            }
+
             var motorcycle = await _motorcycleService.GetMotorcycleDetailsById(id);
+
+            if (motorcycle == null)
+            {
+                return RedirectToAction("BadRequest", "Error");
+            }
+
             var detailsModel = new MotorcycleDetailsViewModel()
             {
                 Id = motorcycle.Id,
@@ -136,16 +162,16 @@ namespace MotoBalkans.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
+            if (!User.IsInAdminRole())
+            {
+                return RedirectToAction("NotAuthorized", "Error");
+            }
+
             var motorcycle = await _motorcycleService.GetMotorcycleById(id);
             if (motorcycle == null)
             {
-                return BadRequest();
+                return RedirectToAction("BadRequest", "Error");
             }
-
-            //if (motorcycle != GetUserId())
-            //{
-            //    return Unauthorized();
-            //}
 
             var model = new DeleteMotorcycleViewModel()
             {
@@ -160,21 +186,28 @@ namespace MotoBalkans.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            if (!User.IsInAdminRole())
+            {
+                return RedirectToAction("NotAuthorized", "Error");
+            }
+
             var motorcycle = await _motorcycleService.GetMotorcycleById(id);
-
-            var rentals = await _motorcycleService.GetAllRentals();
-            var filteredRentals = rentals.Where(r => r.MotorcycleId == id);
-
 
             if (motorcycle == null)
             {
-                return BadRequest();
+                return RedirectToAction("BadRequest", "Error");
             }
 
-            // if motocycle have rentals, delete them first
-            if (filteredRentals.Count() > 0)
+            var rentals = await _motorcycleService.GetAllRentals();
+            if (rentals.Any())
             {
-                await _motorcycleService.DeleteRentals(filteredRentals);
+                var filteredRentals = rentals.Where(r => r.MotorcycleId == id);
+
+                // if motocycle have rentals, delete them first
+                if (filteredRentals.Count() > 0)
+                {
+                    await _motorcycleService.DeleteRentals(filteredRentals);
+                }
             }
 
             await _motorcycleService.DeleteMotorcycle(motorcycle);
@@ -185,11 +218,16 @@ namespace MotoBalkans.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
+            if (!User.IsInAdminRole())
+            {
+                return RedirectToAction("NotAuthorized", "Error");
+            }
+
             var motorcycle = await _motorcycleService.GetMotorcycleById(id);
 
             if (motorcycle == null)
             {
-                return BadRequest();
+                return RedirectToAction("BadRequest", "Error");
             }
 
             var model = new EditMotorcycleViewModel()
@@ -202,6 +240,12 @@ namespace MotoBalkans.Web.Controllers
             };
 
             var engineTypes = await _motorcycleService.GetEngineTypes();
+
+            if (engineTypes == null)
+            {
+                return RedirectToAction("NotFound", "Error");
+            }
+
             model.EngineTypes = engineTypes
                 .Select(c => new EngineViewModel()
                 {
@@ -210,6 +254,12 @@ namespace MotoBalkans.Web.Controllers
                 });
 
             var transmissionTypes = await _motorcycleService.GetTransmissionTypes();
+
+            if (transmissionTypes == null)
+            {
+                return RedirectToAction("NotFound", "Error");
+            }
+
             model.TransmissionTypes = transmissionTypes
                 .Select(c => new TransmissionViewModel()
                 {
@@ -223,11 +273,16 @@ namespace MotoBalkans.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(EditMotorcycleViewModel editModel, int id)
         {
+            if (!User.IsInAdminRole())
+            {
+                return RedirectToAction("NotAuthorized", "Error");
+            }
+
             var motorcycle = await _motorcycleService.GetMotorcycleById(id);
 
             if (motorcycle == null)
             {
-                return BadRequest();
+                return RedirectToAction("NotFound", "Error");
             }
 
             if (!ModelState.IsValid)

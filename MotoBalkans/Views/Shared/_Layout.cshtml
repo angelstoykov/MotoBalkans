@@ -30,13 +30,13 @@
                             <li class="nav-item mx-2">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Motorcycle" asp-action="All">All Motocycles</a>
                             </li>
-                            @if (User.IsInRole("User") || User.IsInRole("Admin"))
+                            @if (User.IsInUserRole() || User.IsInAdminRole())
                             {
                                 <li class="nav-item mx-2">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Booking" asp-action="MyBookings">My Bookings</a>
                                 </li>
                             }
-                            @if (User.IsInRole("Admin"))
+                            @if (User.IsInAdminRole())
                             {
                                 <li class="nav-item mx-2">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Motorcycle" asp-action="Add">Add New Motocycle</a>

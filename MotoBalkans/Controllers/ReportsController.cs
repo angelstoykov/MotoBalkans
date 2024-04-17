@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MotoBalkans.Services.Contracts;
+using MotoBalkans.Web.Data.Enums;
+using MotoBalkans.Web.Extentions;
 using MotoBalkans.Web.Models.ViewModels;
 
 namespace MotoBalkans.Web.Controllers
@@ -18,7 +20,17 @@ namespace MotoBalkans.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> All()
         {
+            if (!User.IsInAdminRole())
+            {
+                return RedirectToAction("NotAuthorized", "Error");
+            }
+
             var reportsList = await _reportService.GetAll();
+            if (reportsList == null || reportsList.Count() == 0)
+            {
+                return RedirectToAction("NotFound", "Error");
+            }
+
             var viewModel = new AllReportsViewModel();
 
             foreach(var report in reportsList)
@@ -33,16 +45,21 @@ namespace MotoBalkans.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Create(int id)
         {
-            if (id == 0)
+            if (!User.IsInAdminRole())
             {
-                throw new Exception("No such report");
+                return RedirectToAction("NotAuthorized", "Error");
+            }
+
+            if (id <= 0 || id.GetType() != typeof(int))
+            {
+                return RedirectToAction("BadRequest", "Error");
             }
 
             var result = await _reportService.CreateReport(id);
 
-            if(result is null)
+            if (result is null)
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Error");
             }
 
             var viewName = string.Empty;

@@ -6,6 +6,7 @@ using MotoBalkans.Data.Contracts;
 using MotoBalkans.Services;
 using MotoBalkans.Services.Contracts;
 using MotoBalkans.Web.Data.Models;
+using MotoBalkans.Web.Extentions;
 using MotoBalkans.Web.Models.ViewModels;
 using System.Security.Claims;
 
@@ -75,10 +76,15 @@ namespace MotoBalkans.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
+            if (User.IsInAdminRole())
+            {
+                return RedirectToAction("NotAuthorized", "Error");
+            }
+
             var booking = await _bookingService.GetBookingById(id);
             if (booking == null)
             {
-                return BadRequest();
+                return RedirectToAction("BadRequest", "Error");
             }
 
             var model = new DeleteMyBookingViewModel()
@@ -92,11 +98,16 @@ namespace MotoBalkans.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            if (User.IsInAdminRole() || User.IsInUserRole())
+            {
+                return RedirectToAction("NotAuthorized", "Error");
+            }
+
             var booking = await _bookingService.GetBookingById(id);
 
             if (booking == null)
             {
-                return BadRequest();
+                return RedirectToAction("BadRequest", "Error");
             }
 
             await _bookingService.DeleteConfirmed(booking);
