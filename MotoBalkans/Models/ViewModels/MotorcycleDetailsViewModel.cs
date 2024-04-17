@@ -15,5 +15,7 @@ namespace MotoBalkans.Web.Models.ViewModels
         public EngineType EngineType { get; set; }
 
         public TransmissionType TransmissionType { get; set; }
+
+        public string PictureUrl { get; set; }
     }
 }

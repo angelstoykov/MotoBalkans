@@ -9,7 +9,7 @@
 
 <form asp-controller="Search" asp-action="SearchByString">
     <p>
-        Brand: <input type="text" name="SearchString" />
+        Brand/Model: <input type="text" name="SearchString" />
         <input type="submit" value="Search" />
     </p>
 </form>
@@ -19,6 +19,7 @@
     {
         <div class="card col-4" style="width: 20rem; ">
             <div class="card-body">
+                <img src="@e.PictureUrl" />
                 <h4 class="card-title mt-1"><a asp-action="All" asp-route-sortOrder="@ViewData["NameSortParm"]">@e.Brand</a> </h4>
                 <h5 class="card-title mt-1"><a asp-action="All" asp-route-sortOrder="@ViewData["ModelSortParam"]">@e.Model</a></h5>
                 <h5 class="card-title mt-1">@e.PricePerDay EUR/day</h5>
@@ -27,16 +28,6 @@
             <a asp-controller="Motorcycle" asp-action="Details" asp-route-id="@e.Id" class="btn btn-info mb-2 w-100 p-3 fw-bold">Details</a>
             <a asp-controller="Motorcycle" asp-action="Delete" asp-route-id="@e.Id" class="btn btn-danger mb-2 w-100 p-3 fw-bold">Delete</a>
             <a asp-controller="Motorcycle" asp-action="Edit" asp-route-id="@e.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Edit</a>
-            @* @if (User?.Identity?.Name == e.Organizer)
-        {
-        <a asp-controller="Seminar" asp-action="Edit" asp-route-id="@e.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Edit</a>
-        }
-        else
-        {
-        <form class="input-group-sm" asp-controller="Seminar" asp-action="Join" asp-route-id="@e.Id">
-        <input type="submit" value="Subscribe" class="fs-6 btn btn-warning mb-2 w-100 p-3 fw-bold" />
-        </form>
-        } *@
         </div>
     }
 </div>

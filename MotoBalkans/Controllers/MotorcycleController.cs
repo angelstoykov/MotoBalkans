@@ -124,7 +124,8 @@ namespace MotoBalkans.Web.Controllers
                 Brand = createMotorcycleModel.Brand,
                 Model = createMotorcycleModel.Model,
                 EngineId = createMotorcycleModel.EngineId,
-                TransmissionId = createMotorcycleModel.TransmissionId
+                TransmissionId = createMotorcycleModel.TransmissionId,
+                PictureUrl = createMotorcycleModel.PictureUrl
             };
 
             await _motorcycleService.CreateNewMotorcycle(motorcycle);
@@ -154,7 +155,9 @@ namespace MotoBalkans.Web.Controllers
                 Brand = motorcycle.Brand,
                 Model = motorcycle.Model,
                 EngineType = motorcycle.Engine.EngineType,
-                TransmissionType = motorcycle.Transmission.TransmissionType
+                TransmissionType = motorcycle.Transmission.TransmissionType,
+                PricePerDay = motorcycle.PricePerDay,
+                PictureUrl = motorcycle.PictureUrl
             };
 
             return View(detailsModel);
@@ -237,7 +240,8 @@ namespace MotoBalkans.Web.Controllers
                 Model = motorcycle.Model,
                 PricePerDay = motorcycle.PricePerDay,
                 EngineId = motorcycle.EngineId,
-                TransmissionId = motorcycle.TransmissionId
+                TransmissionId = motorcycle.TransmissionId,
+                PictureUrl = motorcycle.PictureUrl
             };
 
             var engineTypes = await _motorcycleService.GetEngineTypes();
@@ -312,6 +316,7 @@ namespace MotoBalkans.Web.Controllers
             motorcycle.PricePerDay = editModel.PricePerDay;
             motorcycle.EngineId = editModel.EngineId;
             motorcycle.TransmissionId = editModel.TransmissionId;
+            motorcycle.PictureUrl = editModel.PictureUrl;
 
             await _motorcycleService.EditMotorcycle(motorcycle);
 
