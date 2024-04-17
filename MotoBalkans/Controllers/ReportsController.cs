@@ -62,7 +62,17 @@ namespace MotoBalkans.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Create(int id)
         {
-            if (!User.IsInAdminRole())
+            var isAuthorized = false;
+            if (userMocked != null)
+            {
+                isAuthorized = userMocked.IsInAdminRole();
+            }
+            else
+            {
+                isAuthorized = User.IsInAdminRole();
+            }
+
+            if (!isAuthorized)
             {
                 return RedirectToAction("NotAuthorized", "Error");
             }
