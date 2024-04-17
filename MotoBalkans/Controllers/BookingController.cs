@@ -45,7 +45,7 @@ namespace MotoBalkans.Web.Controllers
 
             await _bookingService.CreateBooking(rental);
 
-            return RedirectToAction("Index", "Search");
+            return RedirectToAction("MyBookings", "Booking");
         }
 
         [HttpGet]
@@ -62,7 +62,8 @@ namespace MotoBalkans.Web.Controllers
                     Motorcycle = x.Motorcycle,
                     StartDate = x.StartDate,
                     EndDate = x.EndDate,
-                    RentalId = x.Id
+                    RentalId = x.Id,
+                    PictureUrl = x.Motorcycle.PictureUrl
                 });
 
             return View(model);
@@ -76,7 +77,7 @@ namespace MotoBalkans.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            if (User.IsInAdminRole())
+            if (!User.IsInAdminRole() && !User.IsInUserRole())
             {
                 return RedirectToAction("NotAuthorized", "Error");
             }
@@ -98,7 +99,7 @@ namespace MotoBalkans.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (User.IsInAdminRole() || User.IsInUserRole())
+            if (!User.IsInAdminRole() && !User.IsInUserRole())
             {
                 return RedirectToAction("NotAuthorized", "Error");
             }

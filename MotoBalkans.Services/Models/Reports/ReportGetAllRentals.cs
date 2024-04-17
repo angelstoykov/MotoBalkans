@@ -17,5 +17,10 @@ namespace MotoBalkans.Services.Models.Reports
         }
 
         public int ReportId { get; set; }
+
+        public decimal GetGrandTotal()
+        {
+           return Items.Sum(r => r.TotalPrice); ;
+        }
     }
 }

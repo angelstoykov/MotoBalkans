@@ -13,7 +13,6 @@
         <thead>
             <tr>
                 <th>Motorcycle</th>
-                @* <th>Customer</th> *@
                 <th>Start Date</th>
                 <th>End Date</th>
                 <th>Total Price</th>
@@ -25,12 +24,17 @@
                 <tr>
                     <input type="hidden" asp-for="@rental.Id" />
                     <td>@rental.Motorcycle.Brand - @rental.Motorcycle.Model</td>
-                    @* <td>@rental.Customer.NormalizedUserName</td> *@
                     <td>@rental.StartDate.ToShortDateString()</td>
                     <td>@rental.EndDate.ToShortDateString()</td>
                     <td>@rental.TotalPrice</td>
                 </tr>
             }
+            <tr>
+                <td></td>
+                <td></td>
+                <td><strong>Income:</strong></td>
+                <td>@Model.GetGrandTotal()</td>
+            </tr>
         </tbody>
     </table>
 </div>

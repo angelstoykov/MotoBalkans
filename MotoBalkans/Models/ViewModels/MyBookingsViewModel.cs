@@ -15,5 +15,7 @@ namespace MotoBalkans.Web.Models.ViewModels
         public DateTime StartDate { get; set; }
         
         public DateTime EndDate { get; set; }
+
+        public string PictureUrl { get; set; }
     }
 }
