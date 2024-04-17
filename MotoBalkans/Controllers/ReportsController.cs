@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MotoBalkans.Data.Contracts;
 using MotoBalkans.Services.Contracts;
 using MotoBalkans.Web.Data.Enums;
 using MotoBalkans.Web.Extentions;
@@ -11,16 +12,27 @@ namespace MotoBalkans.Web.Controllers
     public class ReportsController : Controller
     {
         private readonly IReportService _reportService;
+        private Func<IApplicationUser> userResolverFactory;
 
         public ReportsController(IReportService reportService)
         {
             _reportService = reportService;
         }
 
+        public ReportsController(IReportService reportService, IApplicationUser applicationUser) : this (reportService)
+        {
+            userResolverFactory = () =>
+            {
+                return applicationUser;
+            };
+        }
+
         [HttpGet]
         public async Task<IActionResult> All()
         {
-            if (!User.IsInAdminRole())
+            var user = userResolverFactory();
+
+            if (!user.IsInAdminRole())
             {
                 return RedirectToAction("NotAuthorized", "Error");
             }
