@@ -140,7 +140,7 @@ namespace MotoBalkans.Services
         public async Task DeleteMotorcycle(Motorcycle motorcycle)
         {
 
-            _motorcycleRepository.Delete(motorcycle);
+            await _motorcycleRepository.Delete(motorcycle);
         }
 
         public async Task EditMotorcycle(Motorcycle motorcycle)
