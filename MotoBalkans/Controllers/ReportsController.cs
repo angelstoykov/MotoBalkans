@@ -12,30 +12,26 @@ namespace MotoBalkans.Web.Controllers
     public class ReportsController : Controller
     {
         private readonly IReportService _reportService;
-        private Func<IApplicationUser> userResolverFactory;
+        private IApplicationUser? userMocked = null;
 
-        public ReportsController(IReportService reportService)
+        public ReportsController(IReportService reportService, IApplicationUser applicationUser = null)
         {
             _reportService = reportService;
-        }
 
-        public ReportsController(IReportService reportService, IApplicationUser applicationUser) : this (reportService)
-        {
-            userResolverFactory = () =>
+            if (applicationUser != null) { }
             {
-                return applicationUser;
-            };
+                userMocked = applicationUser;
+            }
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> All()
         {
-            var user = userResolverFactory();
-
-            if (!user.IsInAdminRole())
-            {
-                return RedirectToAction("NotAuthorized", "Error");
-            }
+            //if (userMocked != null ? userMocked.IsInAdminRole() : !User.IsInAdminRole())
+            //{
+            //    return RedirectToAction("NotAuthorized", "Error");
+            //}
 
             var reportsList = await _reportService.GetAll();
             if (reportsList == null || reportsList.Count() == 0)
