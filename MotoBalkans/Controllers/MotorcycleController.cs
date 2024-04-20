@@ -17,7 +17,7 @@ namespace MotoBalkans.Web.Controllers
 
         public int CurrentPage { get; set; } = 1;
         public int Count { get; set; }
-        public int PageSize { get; set; } = 5;
+        public int PageSize { get; set; } = 4;
         public int TotalPages => (int)Math.Ceiling(decimal.Divide(Count, PageSize));
 
         public MotoBalkansDbContext GetContext()
