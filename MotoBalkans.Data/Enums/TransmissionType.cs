@@ -1,4 +1,4 @@
-﻿namespace MotoBalkans.Web.Data.Enums
+﻿namespace MotoBalkans.Data.Enums
 {
     public enum TransmissionType
     {

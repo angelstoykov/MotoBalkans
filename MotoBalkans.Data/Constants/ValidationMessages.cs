@@ -1,4 +1,4 @@
-﻿namespace MotoBalkans.Web.Data.Constants
+﻿namespace MotoBalkans.Data.Constants
 {
     public static class ValidationMessages
     {

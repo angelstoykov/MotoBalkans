@@ -4,7 +4,6 @@ using MotoBalkans.Data.Models;
 using MotoBalkans.Services.Contracts;
 using MotoBalkans.Services.Models;
 using MotoBalkans.Services.Models.Reports;
-using MotoBalkans.Web.Data.Models;
 using System.Security.Claims;
 
 namespace MotoBalkans.Services

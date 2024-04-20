@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using MotoBalkans.Data.Models;
-using MotoBalkans.Web.Data.Models;
 
 namespace MotoBalkans.Web.Models.ViewModels
 {

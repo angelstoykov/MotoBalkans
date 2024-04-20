@@ -24,7 +24,7 @@
     <label asp-for="EndDateRequested"></label>
     <input class="form-control" type="date" asp-for="EndDateRequested" />
 
-    @if (User?.Identity?.Name != null && (User.IsInUserRole() || User.IsInAdminRole()))
+    @if (User?.Identity?.Name != null && (User.IsInUserRole() && User.IsInAdminRole()))
     {
         <div class="mb-3">
             <input class="btn btn-warning mb-2 w-100 p-3 fw-bold" type="submit" value="Book now" />

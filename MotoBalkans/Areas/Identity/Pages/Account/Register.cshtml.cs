@@ -127,6 +127,7 @@ namespace MotoBalkans.Web.Areas.Identity.Pages.Account
                 user.NormalizedEmail = Input.Email;
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+                await _
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)

@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MotoBalkans.Web.Data.Models
+namespace MotoBalkans.Data.Models
 {
     public class Motorcycle
     {
@@ -32,7 +32,7 @@ namespace MotoBalkans.Web.Data.Models
         public IList<Rental> Customers { get; set; } = new List<Rental>();
 
         [Required]
-        [Precision(18,2)]
+        [Precision(18, 2)]
         public decimal PricePerDay { get; set; }
 
         [Required]

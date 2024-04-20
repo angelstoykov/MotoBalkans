@@ -1,5 +1,5 @@
-﻿using MotoBalkans.Services.Models;
-using MotoBalkans.Web.Data.Models;
+﻿using MotoBalkans.Data.Models;
+using MotoBalkans.Services.Models;
 
 namespace MotoBalkans.Services.Contracts
 {

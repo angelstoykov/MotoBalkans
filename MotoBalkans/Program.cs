@@ -7,8 +7,6 @@ using MotoBalkans.Data.Repository;
 using MotoBalkans.Data.SeedDB;
 using MotoBalkans.Services;
 using MotoBalkans.Services.Contracts;
-using MotoBalkans.Web.Data.Contracts;
-using MotoBalkans.Web.Data.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 

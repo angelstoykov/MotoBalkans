@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using MotoBalkans.Data.Models;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MotoBalkans.Web.Data.Models
+namespace MotoBalkans.Data.Models
 {
     public class Rental
     {

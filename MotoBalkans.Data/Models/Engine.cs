@@ -1,7 +1,7 @@
-﻿using MotoBalkans.Web.Data.Enums;
+﻿using MotoBalkans.Data.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace MotoBalkans.Web.Data.Models
+namespace MotoBalkans.Data.Models
 {
     public class Engine
     {

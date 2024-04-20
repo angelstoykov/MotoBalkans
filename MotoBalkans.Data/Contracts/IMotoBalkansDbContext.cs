@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MotoBalkans.Web.Data.Models;
+using MotoBalkans.Data.Models;
 
-namespace MotoBalkans.Web.Data.Contracts
+namespace MotoBalkans.Data.Contracts
 {
     public interface IMotoBalkansDbContext
     {

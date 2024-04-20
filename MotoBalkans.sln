@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotoBalkans.Services", "Mot
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotoBalkans.Data", "MotoBalkans.Data\MotoBalkans.Data.csproj", "{48E76509-D9C4-4242-BA4C-95F7693C8451}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MotoBalkans.Web.Tests", "MotoBalkans.Web.Tests\MotoBalkans.Web.Tests.csproj", "{1CE87A5E-B3FC-4C69-9557-24A0DAF52FBA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MotoBalkans.Tests", "MotoBalkans.Web.Tests\MotoBalkans.Tests.csproj", "{1CE87A5E-B3FC-4C69-9557-24A0DAF52FBA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

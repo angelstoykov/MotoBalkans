@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MotoBalkans.Data.Contracts;
 using MotoBalkans.Services.Contracts;
-using MotoBalkans.Web.Data.Contracts;
 using MotoBalkans.Web.Models.ViewModels;
 
 namespace MotoBalkans.Web.Controllers
@@ -60,6 +60,12 @@ namespace MotoBalkans.Web.Controllers
 
         public async Task<IActionResult> SearchByString(string searchString)
         {
+            if(string.IsNullOrEmpty(searchString)
+                && string.IsNullOrWhiteSpace(searchString))
+            {
+                return RedirectToAction("All", "Motorcycle");
+            }
+
             ViewBag.TitleSuffix = searchString;
 
             var motorcycles = from m in _data.Motorcycles

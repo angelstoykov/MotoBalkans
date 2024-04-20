@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MotoBalkans.Data;
+using MotoBalkans.Data.Models;
 using MotoBalkans.Services.Contracts;
-using MotoBalkans.Web.Data.Enums;
-using MotoBalkans.Web.Data.Models;
 using MotoBalkans.Web.Extentions;
 using MotoBalkans.Web.Models.ViewModels;
 using NuGet.Packaging;
