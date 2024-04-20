@@ -26,8 +26,11 @@
             </div>
 
             <a asp-controller="Motorcycle" asp-action="Details" asp-route-id="@e.Id" class="btn btn-info mb-2 w-100 p-3 fw-bold">Details</a>
-            <a asp-controller="Motorcycle" asp-action="Delete" asp-route-id="@e.Id" class="btn btn-danger mb-2 w-100 p-3 fw-bold">Delete</a>
-            <a asp-controller="Motorcycle" asp-action="Edit" asp-route-id="@e.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Edit</a>
+            @if (User.IsInAdminRole())
+            {
+                <a asp-controller="Motorcycle" asp-action="Delete" asp-route-id="@e.Id" class="btn btn-danger mb-2 w-100 p-3 fw-bold">Delete</a>
+                <a asp-controller="Motorcycle" asp-action="Edit" asp-route-id="@e.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Edit</a>
+            }
         </div>
     }
 </div>
