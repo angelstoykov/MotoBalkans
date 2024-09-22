@@ -3,20 +3,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using MotoBalkans.Data;
+using MotoBalkans.Data.Enums;
+using MotoBalkans.Data.Models;
 using MotoBalkans.Services.Contracts;
 using MotoBalkans.Web.Controllers;
-using MotoBalkans.Web.Data.Contracts;
-using MotoBalkans.Web.Data.Enums;
-using MotoBalkans.Web.Data.Models;
 using MotoBalkans.Web.Models.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
-namespace MotoBalkans.Web.Tests.Controllers
+namespace MotoBalkans.Tests.Web.Controllers
 {
     public class MotorcycleControllerTests
     {
@@ -98,8 +92,6 @@ namespace MotoBalkans.Web.Tests.Controllers
             Assert.Equal(2, viewModel.TransmissionTypes.Count());
         }
 
-
-
         [Fact]
         public async Task Add_ReturnsRedirectToActionResult_WhenServiceReturnsNull()
         {
@@ -109,8 +101,8 @@ namespace MotoBalkans.Web.Tests.Controllers
 
             List<Engine> engineTypes = null;
 
-            List<Transmission> transmissionTypes= null;
-            
+            List<Transmission> transmissionTypes = null;
+
             mockMotorcycleService.Setup(s => s.GetEngineTypes()).ReturnsAsync(engineTypes);
             mockMotorcycleService.Setup(s => s.GetTransmissionTypes()).ReturnsAsync(transmissionTypes);
 

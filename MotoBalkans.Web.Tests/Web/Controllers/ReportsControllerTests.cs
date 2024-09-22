@@ -10,7 +10,7 @@ using MotoBalkans.Web.Models.ViewModels;
 using System.Collections.Generic;
 using Xunit;
 
-namespace MotoBalkans.Web.Tests.Controllers
+namespace MotoBalkans.Tests.Web.Controllers
 {
     public class ReportsControllerTests
     {

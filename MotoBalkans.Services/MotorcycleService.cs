@@ -1,8 +1,7 @@
 ﻿using MotoBalkans.Data.Contracts;
+using MotoBalkans.Data.Models;
 using MotoBalkans.Services.Contracts;
 using MotoBalkans.Services.Models;
-using MotoBalkans.Web.Data.Contracts;
-using MotoBalkans.Web.Data.Models;
 
 namespace MotoBalkans.Services
 {
@@ -14,7 +13,7 @@ namespace MotoBalkans.Services
         private readonly IRepository<Rental> _rentalRepository;
         private IAvailabilityChecker _checker;
 
-        public MotorcycleService(IMotoBalkansDbContext context,
+        public MotorcycleService(
             IRepository<Motorcycle> motorcycleRepository,
             IRepository<Engine> engineRepository,
             IRepository<Transmission> transmissionRepository,

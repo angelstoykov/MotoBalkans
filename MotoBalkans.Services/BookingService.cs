@@ -1,6 +1,6 @@
 ﻿using MotoBalkans.Data.Contracts;
+using MotoBalkans.Data.Models;
 using MotoBalkans.Services.Contracts;
-using MotoBalkans.Web.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using MotoBalkans.Data.Contracts;
+using MotoBalkans.Data.Enums;
 using MotoBalkans.Data.Models;
-using MotoBalkans.Web.Data.Contracts;
-using MotoBalkans.Web.Data.Models;
 
 namespace MotoBalkans.Data
 {
@@ -25,12 +25,12 @@ namespace MotoBalkans.Data
                 new Transmission()
                 {
                     Id = 1,
-                    TransmissionType = Web.Data.Enums.TransmissionType.Manual
+                    TransmissionType = TransmissionType.Manual
                 },
                 new Transmission()
                 {
                     Id = 2,
-                    TransmissionType = Web.Data.Enums.TransmissionType.Automatic
+                    TransmissionType = TransmissionType.Automatic
                 }
                 );
 
@@ -40,17 +40,17 @@ namespace MotoBalkans.Data
                 new Engine()
                 {
                     Id = 1,
-                    EngineType = Web.Data.Enums.EngineType.Conbustion
+                    EngineType = EngineType.Conbustion
                 },
                 new Engine()
                 {
                     Id = 2,
-                    EngineType = Web.Data.Enums.EngineType.Electric
+                    EngineType = EngineType.Electric
                 },
                 new Engine()
                 {
                     Id = 3,
-                    EngineType = Web.Data.Enums.EngineType.Other
+                    EngineType = EngineType.Other
                 });
 
             builder

@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MotoBalkans.Data.Contracts;
-using MotoBalkans.Web.Data.Contracts;
-using MotoBalkans.Web.Data.Models;
+using MotoBalkans.Data.Models;
 
 public class RentalRepository : IRentalRepository
 {

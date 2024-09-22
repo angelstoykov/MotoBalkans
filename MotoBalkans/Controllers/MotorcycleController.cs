@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MotoBalkans.Data;
+using MotoBalkans.Data.Models;
 using MotoBalkans.Services.Contracts;
-using MotoBalkans.Web.Data.Enums;
-using MotoBalkans.Web.Data.Models;
 using MotoBalkans.Web.Extentions;
 using MotoBalkans.Web.Models.ViewModels;
 using NuGet.Packaging;
@@ -18,7 +17,7 @@ namespace MotoBalkans.Web.Controllers
 
         public int CurrentPage { get; set; } = 1;
         public int Count { get; set; }
-        public int PageSize { get; set; } = 5;
+        public int PageSize { get; set; } = 4;
         public int TotalPages => (int)Math.Ceiling(decimal.Divide(Count, PageSize));
 
         public MotoBalkansDbContext GetContext()

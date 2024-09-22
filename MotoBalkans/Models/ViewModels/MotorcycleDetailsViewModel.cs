@@ -1,4 +1,4 @@
-﻿using MotoBalkans.Web.Data.Enums;
+﻿using MotoBalkans.Data.Enums;
 
 namespace MotoBalkans.Web.Models.ViewModels
 {

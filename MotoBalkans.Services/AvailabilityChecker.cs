@@ -1,6 +1,6 @@
-﻿using MotoBalkans.Services.Contracts;
+﻿using MotoBalkans.Data.Contracts;
+using MotoBalkans.Services.Contracts;
 using MotoBalkans.Services.Models;
-using MotoBalkans.Web.Data.Contracts;
 
 public class AvailabilityChecker : IAvailabilityChecker
 {

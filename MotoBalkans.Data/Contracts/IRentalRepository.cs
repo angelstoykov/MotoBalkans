@@ -1,4 +1,4 @@
-﻿using MotoBalkans.Web.Data.Models;
+﻿using MotoBalkans.Data.Models;
 
 namespace MotoBalkans.Data.Contracts
 {

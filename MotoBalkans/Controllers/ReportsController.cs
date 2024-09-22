@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using MotoBalkans.Data.Contracts;
 using MotoBalkans.Services.Contracts;
-using MotoBalkans.Web.Data.Enums;
 using MotoBalkans.Web.Extentions;
 using MotoBalkans.Web.Models.ViewModels;
 
