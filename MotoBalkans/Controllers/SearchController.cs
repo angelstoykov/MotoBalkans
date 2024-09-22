@@ -68,15 +68,14 @@ namespace MotoBalkans.Web.Controllers
 
             ViewBag.TitleSuffix = searchString;
 
-            var motorcycles = from m in _data.Motorcycles
-                         select m;
+            var motorcycles = await _motorcycleService.GetAllMotorcycles();
 
             if (!String.IsNullOrEmpty(searchString))
             {
                 motorcycles = motorcycles.Where(s => s.Brand!.Contains(searchString));
             }
 
-            var result = await motorcycles.ToListAsync();
+            var result = motorcycles;
 
             var viewModel = new SearchByStringAllViewModel();
             foreach (var item in result)
